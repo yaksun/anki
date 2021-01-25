@@ -1,6 +1,6 @@
 <template>
     <div>
-        this is about 
+        xxx
     </div>
 </template>
 <script>

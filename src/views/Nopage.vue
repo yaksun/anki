@@ -1,6 +1,6 @@
 <template>
     <div>
-        this is about 
+            404
     </div>
 </template>
 <script>
