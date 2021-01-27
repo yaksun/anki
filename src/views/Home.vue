@@ -6,13 +6,21 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
-
+import {HomeServices} from '@/bll/home/HomeServices'
 
 
 @Component({
  
 })
 export default class Home extends Vue{
-  
+   mounted() {
+    this.getList()
+  }
+
+  async getList(){
+     const homeServices = new HomeServices(); 
+     const res = await homeServices.getHomeList({})
+     console.log(res)
+  }
 }
 </script>
