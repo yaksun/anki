@@ -3,12 +3,14 @@
         <div :class="['flip-warpper', activeId===item.id ? 'active' :'' ]">
              <div class="front">
             <el-card >
-                {{item.title}}
+                <div class="content"> {{item.title}}</div>
+                <HomeDot :itemId="item.id"/>
             </el-card>
             </div>
             <div class="back">
               <el-card>
-                  {{item.content}}
+                 <div class="content"> {{item.content}}</div>
+                   <HomeDot :itemId="item.id" />
               </el-card>
             </div>
         </div>
@@ -18,7 +20,13 @@
 import Vue from 'vue' 
 import {Component,Prop} from 'vue-property-decorator'
 
-@Component({})
+import HomeDot from '@/components/Home/HomeDot.vue'
+
+@Component({
+    components:{
+        HomeDot
+    }
+})
 export default class HomeItem extends Vue{
     @Prop(Object)
     item
@@ -26,10 +34,7 @@ export default class HomeItem extends Vue{
     @Prop(Number)
     activeId
 
-   
-    mounted() {
-        console.log(this.item)   
-    }
+ 
 }
 </script>
 <style lang="scss" type='stylesheet/scss'>
@@ -58,18 +63,28 @@ export default class HomeItem extends Vue{
        .el-card{
            width: 100%;
            height: 100%;
+           display: flex;
+           .el-card__body{
+               width: 100%;
+               height: 100%;
+               display: flex;
+                flex-direction: column;
+               padding: 0;
+               .content{
+                  flex:1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+               }
+           }
        }
     .back{
         transform: rotateY(-180deg);
-        .el-card{
-        background-color: rgb(255, 192, 203)
-        }
+       
         }
     .front{
         z-index:2;
-        .el-card{
-        background-color: rgb(128, 0, 128);
-        }
+       
         }
     }
   }  
