@@ -9,9 +9,7 @@ import {Component} from 'vue-property-decorator'
 import {HomeServices} from '@/bll/home/HomeServices'
 
 
-@Component({
- 
-})
+@Component({})
 export default class Home extends Vue{
    mounted() {
     this.getList()

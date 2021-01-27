@@ -11,7 +11,7 @@ const routes: Array<RouteConfig> = [
     component: Login
   },
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
@@ -35,6 +35,10 @@ const routes: Array<RouteConfig> = [
     path: '/nopage',
     name: 'Nopage',
     component: () => import(/* webpackChunkName: "about" */ '../views/Nopage.vue')
+  },
+  {
+    path:'/',
+    redirect:'/home'
   },
   {
     path:'*',
