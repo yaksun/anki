@@ -9,7 +9,6 @@ export class HomeNetwork{
             params
         );
 
-        console.log(resultData,'---------')
 
         return resultData
     }
