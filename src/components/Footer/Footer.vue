@@ -15,12 +15,12 @@ import { RawLocation } from 'vue-router'
 
 })
 export default class Footer extends Vue {
-    private navList=[
+     navList=[
         {id:1,name:'列表',path:'/home',class:'icon-menu-home-normal'},
         {id:2,name:'分类',path:'/cate',class:'icon-icon-goodscategory'},
         {id:3,name:'我的',path:'/about',class:'icon-about'}
         ]
-      private currentPath='/home'  
+     currentPath='/home'  
 
       handleClick(path: RawLocation){
           this.currentPath = path+'' 
@@ -36,6 +36,7 @@ export default class Footer extends Vue {
     width: 100%;
     height: 40px;
     line-height: 40px;
+    box-sizing: border-box;
     .footer-list{
         display: flex;
         align-content: center;
