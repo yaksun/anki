@@ -7,7 +7,8 @@ import {
   Select ,
   Card,
   Col,
-  Row 
+  Row ,
+  Input
 } from 'element-ui';
 import './mock'
 
@@ -17,6 +18,7 @@ Vue.component(Select.name, Select);
 Vue.component(Card.name, Card);
 Vue.component(Col.name, Col);
 Vue.component(Row.name, Row);
+Vue.component(Input.name, Input);
 
 new Vue({
   router,
