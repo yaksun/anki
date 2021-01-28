@@ -74,6 +74,9 @@ export default class HomeItem extends Vue{
                   display: flex;
                   justify-content: center;
                   align-items: center;
+                     overflow-y: auto;
+                    margin: 10px;
+                    box-sizing: border-box;
                }
            }
        }
@@ -83,7 +86,7 @@ export default class HomeItem extends Vue{
         }
     .front{
         z-index:2;
-       
+      
         }
     }
   }  

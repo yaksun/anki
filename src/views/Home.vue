@@ -13,6 +13,7 @@ import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
 import {HomeServices} from '@/bll/home/HomeServices'
 import {home_result_model_detail} from  '@/model/home/home_result_model'
+import PubSub from 'pubsub-js'
 
 import HomeItem from '@/components/Home/HomeItem.vue'
 
@@ -26,6 +27,9 @@ export default class Home extends Vue{
    activeId=0
    mounted() {
     this.getList()
+    PubSub.subscribe('refreshHome',()=>{
+        this.getList()
+    })
   }
 
   // 获取列表数据

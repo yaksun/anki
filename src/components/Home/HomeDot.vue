@@ -10,6 +10,7 @@
 import Vue from 'vue'
 import {Component,Prop} from 'vue-property-decorator'
 import {Action,State} from 'vuex-class'
+import PubSub from 'pubsub-js'
 @Component({})
 export default class HomeDot extends Vue{
     @Action('setDot') setDot:any
@@ -23,6 +24,8 @@ export default class HomeDot extends Vue{
         this.setDot({
             [key]:val
         })
+
+        PubSub.publish('refreshHome')
     }
 }
 </script>
