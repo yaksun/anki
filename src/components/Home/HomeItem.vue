@@ -4,7 +4,6 @@
              <div class="front">
             <el-card >
                 <div class="content"> {{item.title}}</div>
-                <HomeDot :itemId="item.id"/>
             </el-card>
             </div>
             <div class="back">

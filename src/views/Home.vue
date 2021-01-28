@@ -44,6 +44,7 @@ export default class Home extends Vue{
     }else{
       this.activeId = 0
     }
+   
   }
 }
 </script>
