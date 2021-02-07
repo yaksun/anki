@@ -10,7 +10,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
-import { RawLocation } from 'vue-router'
 @Component({
 
 })
@@ -20,9 +19,11 @@ export default class Footer extends Vue {
         {id:2,name:'分类',path:'/cate',class:'icon-icon-goodscategory'},
         {id:3,name:'我的',path:'/about',class:'icon-about'}
         ]
+
      currentPath='/home'  
 
-      handleClick(path: RawLocation){
+      
+      handleClick(path){
           this.currentPath = path+'' 
           this.$router.replace(path)
       }  
