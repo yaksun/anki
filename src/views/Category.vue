@@ -22,7 +22,7 @@
             </div>
            </div>
            <div class="content-list">
-
+               <CardItem v-for="(item,index) in 10" :key="index" />
            </div>
        </div>
        <div class="cate-warpper" v-else>
@@ -46,6 +46,8 @@
                 </div>
            </div>
        </div>
+
+
        <el-dialog
             title="新建分类"
             :visible.sync="centerDialogCateVisible"
@@ -91,8 +93,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
+import CardItem from '@/components/Category/CardItem.vue'
 
-@Component({})
+@Component({
+    components:{
+        CardItem
+    }
+})
 export default class Category extends Vue {
     cateList=[
         {id:1,title:'xx'},
@@ -208,6 +215,7 @@ export default class Category extends Vue {
          }
      }
      .list-warpper{
+         height: calc( 100vh - 40px );
          .list-container{
              display: flex;
              .opt-cate{
@@ -239,6 +247,10 @@ export default class Category extends Vue {
                 }
              }
        }  
+         }
+         .content-list{
+             height: calc( 100% - 80px );
+             overflow: auto;
          }
        
      }
