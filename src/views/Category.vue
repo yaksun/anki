@@ -17,12 +17,13 @@
               </div>
             <div class="cate-nav">
                 <div class="cate-title">
-                    <el-tag class="cate-item"  v-for="item in cateList" :key="item.id">{{item.title}}</el-tag>
+                    <el-tag  @click="handleChangeCate(0)" :class="['cate-item', 0===activeIndex?'active':'']">全部</el-tag>
+                    <el-tag @click="handleChangeCate(item.id)" :class="['cate-item', item.id===activeIndex?'active':'']"  v-for="item in cateList" :key="item.id">{{item.title}}</el-tag>
                 </div>
             </div>
            </div>
            <div class="content-list">
-               <CardItem v-for="(item,index) in 10" :key="index" />
+               <CardItem v-for="(item,index) in cardList" :key="index" :item="item" />
            </div>
        </div>
        <div class="cate-warpper" v-else>
@@ -109,8 +110,15 @@ export default class Category extends Vue {
         {id:5,title:'zzee'}
     ]
 
+    cardList=[
+            {id:1,title:'xx',content:'yyyyy1',cate:'vue'},
+            {id:2,title:'xx',content:'yyyyy2',cate:'react'},
+            {id:3,title:'xx',content:'yyyyy3',cate:'angular'}
+    ]
+
     showCate=false
     operStatus=0
+    activeIndex=0
 
     centerDialogVisible= false
     formLabelWidth='50px'
@@ -194,6 +202,11 @@ export default class Category extends Vue {
         }
     }
 
+    // 点击分类时触发 
+    handleChangeCate(id){
+        this.activeIndex = id
+    }
+
 
 }
 </script>
@@ -239,11 +252,14 @@ export default class Category extends Vue {
                 .cate-item{
                     width: 80px;
                     text-align: center;
-                    border: 1px solid #1A73E8;
                     height: 100%;
                     margin: 0 10px;
                     box-sizing: border-box;
                     line-height: 40px;
+                    &.active{
+                        background-color: rgb(26, 115, 232);
+                        color: #fff;
+                    }
                 }
              }
        }  
