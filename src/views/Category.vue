@@ -5,14 +5,14 @@
                <el-input />
             </div>
             <div class="add-item">
-                <i class="iconfont icon-tianjia"></i>
+                <i class="iconfont icon-tianjia" @click="centerDialogVisible = true"></i>
             </div>
         </div>
      
        <div class="list-warpper" v-if="!showCate">
            <div class="list-container">
                 <div class="opt-cate">
-                    <i class="iconfont icon-huabanbeifen5"></i>
+                    <i class="iconfont icon-huabanbeifen5" @click="centerDialogCateVisible = true"></i>
                     <i class="iconfont icon-zujian-icon-06" @click="handleTab"></i>
               </div>
             <div class="cate-nav">
@@ -29,23 +29,63 @@
            <div class="title">分类列表 <i class="iconfont icon-huabanbeifen5"></i><i @click="handleBack" class="iconfont icon-fanhui1"></i></div>
            <div class="cate-list">
                <div class="list-item" v-for="item in cateList" :key="item.id">
-                   <div class="item-title">
+                   <div class="item-title" >
                       <div class="item-left">
-                           {{item.title}}
+                          <el-input v-model="item.title" :disabled="operStatus !=item.id"/>
                       </div>
                       <div class="item-right" v-show="operStatus===item.id">
-                          <i class="iconfont icon-querenduigougouhao"></i>
+                          <i class="iconfont icon-querenduigougouhao" @click="handleOk(item.id)"></i>
                           <i class="iconfont icon-fanhui" @click="handleEditBack"></i>
                       </div>
                  </div>
                  <div class="item-content">3个</div>
                  <div class="item-oper">
                      <i class="iconfont icon-zujian-icon-06" @click="handleEdit(item.id)"></i>
-                     <i class="iconfont icon-lajitong"></i>
+                     <i class="iconfont icon-lajitong" @click="handleDel(item.id)"></i>
                  </div>
                 </div>
            </div>
        </div>
+       <el-dialog
+            title="新建分类"
+            :visible.sync="centerDialogCateVisible"
+            width="30%"
+            center>
+          <el-form :model="cate">
+            <el-form-item label="名称" :label-width="formLabelWidth">
+            <el-input v-model="cate.title" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+          <div slot="footer" class="dialog-footer">
+                <el-button @click="handleCancelAddCate">取 消</el-button>
+                <el-button type="primary" @click="handleAddCate">确 定</el-button>
+            </div>
+        </el-dialog>
+
+          <el-dialog
+            title="添加卡片"
+            :visible.sync="centerDialogVisible"
+            width="30%"
+            center>
+          <el-form :model="form">
+            <el-form-item label="标题" :label-width="formLabelWidth">
+            <el-input v-model="form.title" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="内容" :label-width="formLabelWidth">
+            <el-input v-model="form.content" autocomplete="off" type="textarea" :rows="4"></el-input>
+            </el-form-item>
+            <el-form-item label="分类" :label-width="formLabelWidth">
+            <el-select v-model="form.cate" placeholder="请选择分类">
+                <el-option label="vue" value="vue"></el-option>
+                <el-option label="react" value="react"></el-option>
+            </el-select>
+            </el-form-item>
+        </el-form>
+          <div slot="footer" class="dialog-footer">
+                <el-button @click="handleCancel">取 消</el-button>
+                <el-button type="primary" @click="handleAddItem">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script lang="ts">
@@ -65,6 +105,21 @@ export default class Category extends Vue {
     showCate=false
     operStatus=0
 
+    centerDialogVisible= false
+    formLabelWidth='50px'
+
+    centerDialogCateVisible=false
+
+    form={
+        title:'',
+        content:'',
+        cate:''
+    }
+   
+   cate={
+       title:''
+   }
+
     // 切换Tab
     handleTab(){
         this.showCate=true
@@ -83,6 +138,56 @@ export default class Category extends Vue {
     handleEditBack(){
         this.operStatus = 0
     }
+
+    // 编辑后确认
+    handleOk(id){
+         this.operStatus = 0
+         let activeItem = this.cateList.find(item=>item.id === id)
+        console.log(id,activeItem)
+    }
+
+    // 删除
+    handleDel(id){
+        this.cateList = this.cateList.filter(item=>item.id != id)
+    }
+
+    // 添加卡片
+    handleAddItem(){
+        // console.log( this.form);
+       this.handleCancel() 
+    }
+
+    // 取消卡片添加
+    handleCancel(){
+         this.centerDialogVisible = false
+        this.clearItemForm()
+    }
+
+    // 添加分类
+    handleAddCate(){
+        console.log(this.cate);
+        
+      this.handleCancelAddCate()
+    }
+
+    // 取消添加分类 
+    handleCancelAddCate(){
+            this.centerDialogCateVisible = false 
+            this.cate = {
+                title:''
+            }
+    }
+
+    // 清空表单
+    clearItemForm(){
+        this.form={
+             title:'',
+            content:'',
+            cate:''
+        }
+    }
+
+
 }
 </script>
 <style lang="scss" type='stylesheet/scss'>

@@ -18,7 +18,7 @@ import Footer from '@/components/Footer/Footer.vue'
   }
 })
 export default class App extends Vue {
-
+  
 }
 </script>
 <style>

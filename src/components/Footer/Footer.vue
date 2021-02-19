@@ -22,7 +22,8 @@ export default class Footer extends Vue {
 
      currentPath='/home'  
 
-      
+     
+
       handleClick(path){
           this.currentPath = path+'' 
           this.$router.replace(path)
