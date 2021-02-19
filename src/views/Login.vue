@@ -82,4 +82,12 @@ export default class   Login  extends Vue{
                 }
         }
     }
+
+    @media only screen and (max-width: 500px){
+      .category-template-list{
+        .el-dialog{
+          width: 80%  !important;
+        }
+      }
+    }
 </style>
