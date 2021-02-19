@@ -17,7 +17,7 @@
               </div>
             <div class="cate-nav">
                 <div class="cate-title">
-                    <div class="cate-item"  v-for="item in cateList" :key="item.id">{{item.title}}</div>
+                    <el-tag class="cate-item"  v-for="item in cateList" :key="item.id">{{item.title}}</el-tag>
                 </div>
             </div>
            </div>
@@ -269,7 +269,7 @@ export default class Category extends Vue {
                     padding: 0 20px;
                     border-bottom: 1px solid #ccc;
                     .item-left{
-                        flex:1;
+                        width: 50%;
                         text-align: left;
                     }
                     .item-right{

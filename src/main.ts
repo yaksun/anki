@@ -12,7 +12,8 @@ import {
   Input,
   Dialog,
   Form,
-  FormItem
+  FormItem,
+  Tag
 } from 'element-ui';
 import './mock'
 
@@ -27,6 +28,7 @@ Vue.component(Input.name, Input);
 Vue.component(Dialog.name, Dialog);
 Vue.component(Form.name, Form);
 Vue.component(FormItem.name, FormItem);
+Vue.component(Tag.name, Tag);
 
 new Vue({
   router,

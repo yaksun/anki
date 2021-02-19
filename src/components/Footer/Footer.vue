@@ -8,7 +8,7 @@
             <a :class="['footer-item' ,$route.path=== '/cate' ? 'active-footer' : ''  ]" @click="handleGoto('cate')">
                 <i class="iconfont icon-icon-goodscategory"></i>
             </a>
-            <a :class="['footer-item' ,$route.path=== '/about' ? 'active-footer' : ''  ]" @click="handleGoto('about')">
+            <a :class="['footer-item' ,$route.path=== '/login' ? 'active-footer' : ''  ]" @click="handleGoto('login')">
                 <i class="iconfont icon-about"></i>
             </a>
         </div>
@@ -16,11 +16,12 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import {Component} from 'vue-property-decorator'
+import {Component,Prop} from 'vue-property-decorator'
 @Component({
 
 })
 export default class Footer extends Vue {
+  
     handleGoto(path){
         this.$router.replace(path)
     }
