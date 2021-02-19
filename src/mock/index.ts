@@ -12,3 +12,18 @@ Mock.mock(/\/list/, 'get', () => {
     return getResult(data)
 
 })
+
+
+
+Mock.mock(/\/catelist/, 'get', () => {
+    const data=[
+        {id:1,title:'vue'},
+        {id:2,title:'react'},
+        {id:3,title:'angular'},
+        {id:4,title:'uniapp'}
+       
+    ]
+
+    return getResult(data)
+
+})
