@@ -64,6 +64,7 @@ import {Component} from 'vue-property-decorator'
 import {State,Getter} from 'vuex-class'
 
 import CardItem from '@/components/Category/CardItem.vue'
+import {CategoryServices} from '@/bll/category/CategoryServices'
 
 @Component({
     components:{
@@ -79,6 +80,7 @@ export default class Warpper extends Vue {
     showCate=false
     operStatus=0
     activeIndex=0
+    categoryServices = new CategoryServices() 
 
   
 
@@ -127,10 +129,12 @@ export default class Warpper extends Vue {
    
 
     // 添加分类
-    handleAddCate(){
-        console.log(this.cate);
-        
-      this.handleCancelAddCate()
+   async handleAddCate(){
+     const res = await this.categoryServices.addCate(this.cate) 
+        if(res){
+            console.log(res)
+            this.handleCancelAddCate()
+        }
     }
 
     // 取消添加分类 

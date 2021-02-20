@@ -1,0 +1,11 @@
+{
+    "lists": [
+      { "id": 1, "title": "vue基础篇","content":"vuex状态管理", "cateId": 1 },
+      { "id": 2, "title": "react基础篇","content":"react状态管理", "cateId": 2 }
+    ],
+    "cate": [
+      { "id": 1, "title": "vue" },
+      {"id":2,"title":"react"}
+    ]
+    
+  }

@@ -1,10 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    sourceType: 'module',
-    ecmaFeatures: {
-      "legacyDecorators": true
-    },
+   
     parser: "babel-eslint"
   },
   extends: [
@@ -18,7 +15,6 @@ module.exports = {
     es6: true,
   },
   rules: {
-    'no-console': 'off',
   }
    
   }

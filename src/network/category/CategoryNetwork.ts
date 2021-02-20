@@ -12,4 +12,16 @@ export class CategoryNetwork{
 
         return resultData
     }
+
+
+    public async addCate(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            CategoryAPIS.add_cate.baseUrl,
+            CategoryAPIS.add_cate.url,
+            CategoryAPIS.add_cate.method,
+            params
+        );
+
+        return resultData
+    }
 }

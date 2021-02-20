@@ -15,7 +15,7 @@ import {
   FormItem,
   Tag
 } from 'element-ui';
-import './mock'
+// import './mock'
 
 Vue.config.productionTip = false
 Vue.component(Button.name, Button);
