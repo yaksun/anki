@@ -21,9 +21,13 @@
             <el-input v-model="form.content" autocomplete="off" type="textarea" :rows="4"></el-input>
             </el-form-item>
             <el-form-item label="分类" :label-width="formLabelWidth">
-            <el-select v-model="form.cate" placeholder="请选择分类">
-                <el-option label="vue" value="vue"></el-option>
-                <el-option label="react" value="react"></el-option>
+            <el-select v-model="form.cateId" placeholder="请选择分类">
+                 <el-option
+                    v-for="item in cateList"
+                    :key="item.id"
+                    :label="item.title"
+                    :value="item.id">
+                    </el-option>
             </el-select>
             </el-form-item>
         </el-form>
@@ -37,16 +41,19 @@
 <script lang="ts">
 import Vue from 'vue' 
 import {Component} from 'vue-property-decorator'
+import {State} from 'vuex-class'
 
 @Component({})
 export default class Search extends Vue {
+    @State('cateList') cateList:any 
+
       keyword:String=''
       centerDialogVisible=false
 
         form={
         title:'',
         content:'',
-        cate:''
+        cateId:''
     }
 
      formLabelWidth='50px'
@@ -58,7 +65,7 @@ export default class Search extends Vue {
 
      // 添加卡片
     handleAddItem(){
-        // console.log( this.form);
+        console.log( this.form);
        this.handleCancel() 
     }
 
@@ -73,7 +80,7 @@ export default class Search extends Vue {
         this.form={
              title:'',
             content:'',
-            cate:''
+            cateId:''
         }
     }
 }

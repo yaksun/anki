@@ -65,6 +65,7 @@ import {State,Getter} from 'vuex-class'
 
 import CardItem from '@/components/Category/CardItem.vue'
 import {CategoryServices} from '@/bll/category/CategoryServices'
+import PubSub from 'pubsub-js'
 
 @Component({
     components:{
@@ -132,7 +133,7 @@ export default class Warpper extends Vue {
    async handleAddCate(){
      const res = await this.categoryServices.addCate(this.cate) 
         if(res){
-            console.log(res)
+            PubSub.publish('refreshHome')
             this.handleCancelAddCate()
         }
     }

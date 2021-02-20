@@ -6,7 +6,7 @@ const CategoryAPIS ={
     },
     add_cate:{
         baseUrl:'http://localhost:3000',
-        url:'/addCate',
+        url:'/cate',
         method:'post'
     }
 

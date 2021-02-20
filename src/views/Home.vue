@@ -38,6 +38,7 @@ export default class Home extends Vue{
     this.getCateList() 
     PubSub.subscribe('refreshHome',()=>{
         this.getList()
+        this.getCateList() 
     })
   }
 
