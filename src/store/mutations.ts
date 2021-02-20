@@ -13,7 +13,9 @@ export default{
        }
     },
     [SETLIST](state,list){
-        state.list = list 
+        state.list = list.sort((n1,n2)=>{
+            return n1.nextShowTime - n2.nextShowTime
+        }) 
     },
     [SETCATELIST](state,cateList){
         state.cateList = cateList 

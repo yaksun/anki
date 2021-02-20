@@ -82,6 +82,9 @@ export default class HomeItem extends Vue{
        }
     .back{
         transform: rotateY(-180deg);
+        .content{
+            border-bottom: 1px solid #555;
+        }
        
         }
     .front{

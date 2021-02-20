@@ -4,13 +4,25 @@
       "id": 1,
       "title": "vue基础篇",
       "content": "vuex状态管理",
-      "cateId": 1
+      "cateId": 1,
+      "nextShowTime":1613577600000,
+      "leavel":0
     },
     {
       "id": 2,
       "title": "react基础篇",
       "content": "react状态管理",
-      "cateId": 2
+      "cateId": 2,
+      "nextShowTime":1612540800000,
+      "leavel":0
+    },
+    {
+      "id": 3,
+      "title": "reactff",
+      "content": "007",
+      "cateId": 2,
+      "nextShowTime":0,
+      "leavel":0
     }
   ],
   "cate": [

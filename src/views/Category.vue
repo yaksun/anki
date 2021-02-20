@@ -26,5 +26,6 @@ export default class Category extends Vue {
 <style lang="scss" type='stylesheet/scss'>
  .category-template-list{
      height: 100vh;
+     overflow: hidden;
  }   
 </style>

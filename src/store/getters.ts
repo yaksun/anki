@@ -1,4 +1,3 @@
-import { mixin } from "vue/types/umd"
 
 export default {
     unoinList(state){
@@ -12,6 +11,12 @@ export default {
                  cateName:temp[mini.cateId]
             }
         } )
+
+
+        unoinList = unoinList.sort((n1,n2)=>{
+            return n1.nextShowTime - n2.nextShowTime
+        })
+
 
         return unoinList
     }

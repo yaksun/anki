@@ -1,8 +1,8 @@
 <template>
   <div class="home-template-class">
   <ul >
-    <li v-for="item in list" :key="item.id" @click="handleClick(item.id)" >
-      <HomeItem :item="item" :activeId="activeId" />
+    <li v-for="item in list" :key="item.id" @click="handleClick(item.id)">
+      <HomeItem  :item="item" :activeId="activeId" />
     </li>
   </ul>
   </div>
@@ -48,8 +48,8 @@ export default class Home extends Vue{
      const homeServices = new HomeServices(); 
      const res = await homeServices.getHomeList({})
      if(res &&  res.data){
-       this.list = res.data 
-       this.setCardList(this.list)
+       this.list = [res.data[0]]
+       this.setCardList(res.data)
      }
   }
 
@@ -79,12 +79,14 @@ export default class Home extends Vue{
     height: calc(100vh - 40px );
     display: flex;
     justify-content: center;
+    align-items: center;
     overflow-y: auto;
     &>ul{
       width:100%;
+      height: fit-content;
       &>li{
-        height: 200px;
-        padding: 15px 10px;
+        height: 360px;
+        padding: 15px 30px;
       }
       
     }

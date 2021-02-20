@@ -14,11 +14,11 @@ class home_result_model extends base_model {
 
   class home_result_model_detail{
     public id!:Number // id
-    public cateid!:Number  // 分类id
+    public cateId!:Number  // 分类id
     public title!:String  // 标题
     public content!:String   // 内容
-    public lenged!:String  // 等级
-    public showTime!:String  // 展示时间
+    public leavel!:String  // 等级
+    public nextShowTime!:String  // 展示时间
   }
 
 

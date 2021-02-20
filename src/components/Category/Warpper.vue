@@ -19,7 +19,8 @@
        </div>
       <div class="cate-warpper" v-else>
            <div class="title">分类列表 <i class="iconfont icon-huabanbeifen5" @click="centerDialogCateVisible = true"></i><i @click="handleBack" class="iconfont icon-fanhui1"></i></div>
-           <div class="cate-list">
+          <div class="cate-container">
+               <div class="cate-list">
                <div class="list-item" v-for="item in cateList" :key="item.id">
                    <div class="item-title" >
                       <div class="item-left">
@@ -37,6 +38,7 @@
                  </div>
                 </div>
            </div>
+          </div>
        </div>
 
 
@@ -156,10 +158,10 @@ export default class Warpper extends Vue {
 
 
     get tempList(){
-        let tempList = this.unoinList 
+        let tempList = this.unoinList
 
         if(this.activeIndex!=0){
-         tempList = this.unoinList.filter(item=>item.cateId=== this.activeIndex)
+         tempList = tempList.filter(item=>item.cateId=== this.activeIndex)
         }
         return tempList
     }
@@ -205,7 +207,7 @@ export default class Warpper extends Vue {
        }  
          }
          .content-list{
-             height: calc( 100% - 80px );
+             height: calc( 100% - 100px );
              overflow: auto;
          }
        
@@ -213,6 +215,11 @@ export default class Warpper extends Vue {
     
        .cate-warpper{
          padding: 0 10px;
+        height: calc( 100vh - 40px);
+        .cate-container{
+            overflow: auto;
+            height: calc(100% - 80px);
+        }
          .title{
              i{
                  margin-left: 10px;
