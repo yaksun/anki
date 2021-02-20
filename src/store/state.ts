@@ -1,3 +1,5 @@
 export default{
-    dotObj:{} 
+    dotObj:{} ,
+    list:[],
+    cateList:[]
 }

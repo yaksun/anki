@@ -2,7 +2,7 @@
     <el-card class="carditem-template-class">
        <div class="header">
             <h3>{{item.title}}</h3>
-            <el-tag>{{item.cate}}</el-tag>
+            <el-tag>{{item.cateName}}</el-tag>
        </div>
        <p>{{item.content}}</p>
     </el-card>
@@ -14,6 +14,9 @@ import {Component,Prop} from 'vue-property-decorator'
 export default class CardItem extends Vue {
     @Prop(Object)
     item 
+
+   
+  
 }
 </script>
 <style lang="scss">

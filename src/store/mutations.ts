@@ -1,4 +1,4 @@
-import {SETDOT} from './mutation-type'
+import {SETDOT,SETLIST,SETCATELIST} from './mutation-type'
 import Vue from 'vue'
 export default{
     [SETDOT](state,dotObj){
@@ -11,5 +11,11 @@ export default{
        } catch (error) {
            
        }
+    },
+    [SETLIST](state,list){
+        state.list = list 
+    },
+    [SETCATELIST](state,cateList){
+        state.cateList = cateList 
     }
 }

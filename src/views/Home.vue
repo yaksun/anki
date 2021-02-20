@@ -11,8 +11,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
+import {Mutation} from 'vuex-class'
+
 import {HomeServices} from '@/bll/home/HomeServices'
 import {home_result_model_detail} from  '@/model/home/home_result_model'
+import {CategoryServices} from '@/bll/category/CategoryServices'
+
 import PubSub from 'pubsub-js'
 
 import HomeItem from '@/components/Home/HomeItem.vue'
@@ -23,14 +27,20 @@ import HomeItem from '@/components/Home/HomeItem.vue'
   }
 })
 export default class Home extends Vue{
+  @Mutation('SETLIST') setCardList:any
+  @Mutation('SETCATELIST') setCateList:any
+
    list:Array<home_result_model_detail>=[]
+    
    activeId=0
    mounted() {
     this.getList()
+    this.getCateList() 
     PubSub.subscribe('refreshHome',()=>{
         this.getList()
     })
   }
+
 
   // 获取列表数据
   async getList(){
@@ -38,6 +48,17 @@ export default class Home extends Vue{
      const res = await homeServices.getHomeList({})
      if(res &&  res.data){
        this.list = res.data 
+       this.setCardList(this.list)
+     }
+  }
+
+       // 获取列表数据
+  async getCateList(){
+    
+     const cateServices = new CategoryServices(); 
+     const res = await cateServices.getCateList({})
+     if(res &&  res.data){
+       this.setCateList(res.data)
      }
   }
 

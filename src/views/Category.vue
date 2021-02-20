@@ -1,8 +1,6 @@
 <template>
     <div class="category-template-list">
-       
      <Search  />
-       
       <Warpper />  
     </div>
 </template>

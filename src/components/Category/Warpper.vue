@@ -14,7 +14,7 @@
             </div>
            </div>
            <div class="content-list">
-               <CardItem v-for="(item,index) in cardList" :key="index" :item="item" />
+               <CardItem v-for="(item,index) in tempList" :key="index" :item="item" />
            </div>
        </div>
       <div class="cate-warpper" v-else>
@@ -61,12 +61,9 @@
 <script lang="ts">
 import Vue from 'vue' 
 import {Component} from 'vue-property-decorator'
-
-import {CategoryServices} from '@/bll/category/CategoryServices'
-import {cate_result_model_detail} from  '@/model/category/cate_result_model'
+import {State,Getter} from 'vuex-class'
 
 import CardItem from '@/components/Category/CardItem.vue'
-
 
 @Component({
     components:{
@@ -74,13 +71,10 @@ import CardItem from '@/components/Category/CardItem.vue'
     }
 })
 export default class Warpper extends Vue {
-     cateList:Array<cate_result_model_detail>=[]
-
-    cardList=[
-            {id:1,title:'xx',content:'yyyyy1',cate:'vue'},
-            {id:2,title:'xx',content:'yyyyy2',cate:'react'},
-            {id:3,title:'xx',content:'yyyyy3',cate:'angular'}
-    ]
+    @State('list') cardList:any 
+    @State('cateList') cateList:any 
+    @Getter('unoinList') unoinList:any 
+   
 
     showCate=false
     operStatus=0
@@ -98,21 +92,6 @@ export default class Warpper extends Vue {
    cate={
        title:''
    }
-
-    created() {
-        this.getCateList() 
-    }
-
-
-      // 获取列表数据
-  async getCateList(){
-    
-     const cateServices = new CategoryServices(); 
-     const res = await cateServices.getCateList({})
-     if(res &&  res.data){
-       this.cateList = res.data 
-     }
-  }
 
     // 切换Tab
     handleTab(){
@@ -167,6 +146,17 @@ export default class Warpper extends Vue {
     // 点击分类时触发 
     handleChangeCate(id){
         this.activeIndex = id
+       
+    }
+
+
+    get tempList(){
+        let tempList = this.unoinList 
+
+        if(this.activeIndex!=0){
+         tempList = this.unoinList.filter(item=>item.cateId=== this.activeIndex)
+        }
+        return tempList
     }
 
 }
