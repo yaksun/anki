@@ -21,7 +21,7 @@
            <div class="title">分类列表 <i class="iconfont icon-huabanbeifen5" @click="centerDialogCateVisible = true"></i><i @click="handleBack" class="iconfont icon-fanhui1"></i></div>
           <div class="cate-container">
                <div class="cate-list">
-               <div class="list-item" v-for="item in cateList" :key="item.id">
+               <div class="list-item" v-for="item in newCateList" :key="item.id">
                    <div class="item-title" >
                       <div class="item-left">
                           <el-input v-model="item.title" :disabled="operStatus !=item.id"/>
@@ -31,10 +31,10 @@
                           <i class="iconfont icon-fanhui" @click="handleEditBack"></i>
                       </div>
                  </div>
-                 <div class="item-content">3个</div>
+                 <div class="item-content">关联{{item.length}}个卡片</div>
                  <div class="item-oper">
                      <i class="iconfont icon-zujian-icon-06" @click="handleEdit(item.id)"></i>
-                     <i class="iconfont icon-lajitong" @click="handleDel(item.id)"></i>
+                     <i v-if="!item.length" class="iconfont icon-lajitong" @click="handleDel(item.id)"></i>
                  </div>
                 </div>
            </div>
@@ -80,6 +80,7 @@ export default class Warpper extends Vue {
     @State('list') cardList:any 
     @State('cateList') cateList:any 
     @Getter('unoinList') unoinList:any 
+    @Getter('newCateList') newCateList:any 
     @Mutation('ADDCATE') add_cate:any 
     @Mutation('DELCATE') del_cate:any  
     @Mutation('UPDCATE') upd_cate:any  

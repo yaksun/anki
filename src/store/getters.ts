@@ -19,5 +19,16 @@ export default {
 
 
         return unoinList
+    },
+    newCateList(state){
+        let o = state.cateList.map(item=>{
+            let temp  = state.list.filter(mini=>mini.cateId===item.id)
+            return {
+                ...item,
+                length:temp ? temp.length : 0
+            }
+        })
+
+        return o
     }
 }
