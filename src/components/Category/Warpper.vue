@@ -14,7 +14,7 @@
             </div>
            </div>
            <div class="content-list">
-               <CardItem v-for="(item,index) in tempList" :key="index" :item="item" />
+               <CardItem v-for="(item,index) in tempList" :key="index" @editCard="editCard(item)" :item="item" />
            </div>
        </div>
       <div class="cate-warpper" v-else>
@@ -57,37 +57,43 @@
                 <el-button type="primary" @click="handleAddCate">确 定</el-button>
             </div>
         </el-dialog>
-
+        <CardModal ref="card" :item="editItem" />
+        
     </div>
 </template>
 <script lang="ts">
 import Vue from 'vue' 
-import {Component} from 'vue-property-decorator'
-import {State,Getter} from 'vuex-class'
+import {Component,Ref} from 'vue-property-decorator'
+import {State,Getter,Mutation} from 'vuex-class'
 
 import CardItem from '@/components/Category/CardItem.vue'
 import {CategoryServices} from '@/bll/category/CategoryServices'
-import PubSub from 'pubsub-js'
+import CardModal from '@/components/Category/CardModal.vue'
 
 @Component({
     components:{
-        CardItem
+        CardItem,
+        CardModal
     }
 })
 export default class Warpper extends Vue {
     @State('list') cardList:any 
     @State('cateList') cateList:any 
     @Getter('unoinList') unoinList:any 
+    @Mutation('ADDCATE') add_cate:any 
+    @Mutation('DELCATE') del_cate:any  
+    @Mutation('UPDCATE') upd_cate:any  
+    @Ref('card') cardModal:any 
    
 
     showCate=false
     operStatus=0
     activeIndex=0
     categoryServices = new CategoryServices() 
-
+    editItem={}
   
 
-    centerDialogVisible= false
+  
     formLabelWidth='50px'
 
     centerDialogCateVisible=false
@@ -96,6 +102,12 @@ export default class Warpper extends Vue {
    
    cate={
        title:''
+   }
+
+    // 打开编辑卡片
+   editCard(item){
+        this.editItem = item 
+        this.cardModal.centerDialogVisible = true 
    }
 
     // 切换Tab
@@ -118,15 +130,22 @@ export default class Warpper extends Vue {
     }
 
     // 编辑后确认
-    handleOk(id){
+   async handleOk(id){
          this.operStatus = 0
          let activeItem = this.cateList.find(item=>item.id === id)
-        console.log(id,activeItem)
+         const res = await this.categoryServices.updCate(activeItem) 
+         if(res){
+             this.upd_cate(activeItem)
+         }
+       
     }
 
     // 删除
-    handleDel(id){
-        this.cateList = this.cateList.filter(item=>item.id != id)
+   async handleDel(id){
+        const res =  await this.categoryServices.delCate(id) 
+        if(res){
+            this.del_cate(id)
+        }
     }
 
    
@@ -135,7 +154,7 @@ export default class Warpper extends Vue {
    async handleAddCate(){
      const res = await this.categoryServices.addCate(this.cate) 
         if(res){
-            PubSub.publish('refreshHome')
+            this.add_cate(this.cate)
             this.handleCancelAddCate()
         }
     }

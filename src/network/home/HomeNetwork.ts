@@ -12,4 +12,42 @@ export class HomeNetwork{
 
         return resultData
     }
+
+    public async addCard(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            HomeAPIS.add_card.baseUrl,
+            HomeAPIS.add_card.url,
+            HomeAPIS.add_card.method,
+            params
+        );
+
+
+        return resultData
+    }
+
+
+    public async updCard(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            HomeAPIS.add_card.baseUrl,
+            HomeAPIS.add_card.url+'/'+params.id,
+            HomeAPIS.add_card.method,
+            params
+        );
+
+
+        return resultData
+    }
+
+
+    public async delCard(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            HomeAPIS.del_card.baseUrl,
+            HomeAPIS.del_card.url+'/'+params,
+            HomeAPIS.del_card.method,
+            params
+        );
+
+
+        return resultData
+    }
 }

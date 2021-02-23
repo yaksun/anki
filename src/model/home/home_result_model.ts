@@ -17,8 +17,8 @@ class home_result_model extends base_model {
     public cateId!:Number  // 分类id
     public title!:String  // 标题
     public content!:String   // 内容
-    public leavel!:String  // 等级
-    public nextShowTime!:String  // 展示时间
+    public leavel!:Number  // 等级
+    public nextShowTime!:Number  // 展示时间
   }
 
 

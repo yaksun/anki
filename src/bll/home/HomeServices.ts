@@ -16,4 +16,54 @@ export class HomeServices{
 
         return data;
     }
+
+    public async addCard(params){
+        let network = new HomeNetwork()
+        let startDateTime = new Date().getTime();
+        const resultData:any = await network.addCard(params)
+   
+        let endDateTime = new Date().getTime();
+
+        let data = new home_result_model();
+        data.code = resultData.code;
+        data.data = <home_result_model_detail[]>resultData;
+        data.message = resultData.message;
+        data.expendTime = endDateTime - startDateTime;
+
+        return data;
+    }
+
+    public async updCard(params){
+        let network = new HomeNetwork()
+        let startDateTime = new Date().getTime();
+        const resultData:any = await network.updCard(params)
+   
+        let endDateTime = new Date().getTime();
+
+        let data = new home_result_model();
+        data.code = resultData.code;
+        data.data = <home_result_model_detail[]>resultData;
+        data.message = resultData.message;
+        data.expendTime = endDateTime - startDateTime;
+
+        return data;
+    }
+
+
+
+    public async delCard(params){
+        let network = new HomeNetwork()
+        let startDateTime = new Date().getTime();
+        const resultData:any = await network.delCard(params)
+   
+        let endDateTime = new Date().getTime();
+
+        let data = new home_result_model();
+        data.code = resultData.code;
+        data.data = <home_result_model_detail[]>resultData;
+        data.message = resultData.message;
+        data.expendTime = endDateTime - startDateTime;
+
+        return data;
+    }
 }

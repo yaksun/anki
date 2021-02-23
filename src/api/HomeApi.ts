@@ -1,8 +1,18 @@
 const HomeAPIS ={
     home_list:{
-        baseUrl: "http://localhost:3000",
-        url: "/lists",
+        baseUrl: "/",
+        url: "api/card",
         method: "get",
+    },
+    add_card:{
+        baseUrl: "/",
+        url: "api/card",
+        method: "post",
+    },
+    del_card:{
+        baseUrl: "/",
+        url: "api/card/del",
+        method: "post",
     }
 
 }

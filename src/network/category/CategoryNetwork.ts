@@ -24,4 +24,27 @@ export class CategoryNetwork{
 
         return resultData
     }
+
+    public async updCate(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            CategoryAPIS.add_cate.baseUrl,
+            CategoryAPIS.add_cate.url+'/'+params.id,
+            CategoryAPIS.add_cate.method,
+            params
+        );
+
+        return resultData
+    }
+
+
+    public async delCate(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            CategoryAPIS.del_cate.baseUrl,
+            CategoryAPIS.del_cate.url+'/'+params,
+            CategoryAPIS.del_cate.method,
+            params
+        );
+
+        return resultData
+    }
 }

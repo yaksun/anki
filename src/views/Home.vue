@@ -48,6 +48,7 @@ export default class Home extends Vue{
      const homeServices = new HomeServices(); 
      const res = await homeServices.getHomeList({})
      if(res &&  res.data){
+       console.log(res)
        this.list = [res.data[0]]
        this.setCardList(res.data)
      }

@@ -32,4 +32,34 @@ export class CategoryServices{
 
         return data;
     }
+
+    public async updCate(params){
+        let network = new CategoryNetwork()
+        let startDateTime = new Date().getTime();
+        const resultData:any = await network.updCate(params)
+        let endDateTime = new Date().getTime();
+
+        let data = new cate_result_model();
+        data.code = resultData.code;
+        data.data = <cate_result_model_detail[]>resultData;
+        data.message = resultData.message;
+        data.expendTime = endDateTime - startDateTime;
+
+        return data;
+    }
+
+    public async delCate(params){
+        let network = new CategoryNetwork()
+        let startDateTime = new Date().getTime();
+        const resultData:any = await network.delCate(params)
+        let endDateTime = new Date().getTime();
+
+        let data = new cate_result_model();
+        data.code = resultData.code;
+        data.data = <cate_result_model_detail[]>resultData;
+        data.message = resultData.message;
+        data.expendTime = endDateTime - startDateTime;
+
+        return data;
+    }
 }

@@ -6,83 +6,38 @@
                </el-input>
             </div>
             <div class="add-item">
-                <i class="iconfont icon-tianjia" @click="centerDialogVisible = true"></i>
+                <i class="iconfont icon-tianjia" @click="handleShow"></i>
             </div>
-              <el-dialog
-            title="添加卡片"
-            :visible.sync="centerDialogVisible"
-            width="30%"
-            center>
-          <el-form :model="form">
-            <el-form-item label="标题" :label-width="formLabelWidth">
-            <el-input v-model="form.title" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="内容" :label-width="formLabelWidth">
-            <el-input v-model="form.content" autocomplete="off" type="textarea" :rows="4"></el-input>
-            </el-form-item>
-            <el-form-item label="分类" :label-width="formLabelWidth">
-            <el-select v-model="form.cateId" placeholder="请选择分类">
-                 <el-option
-                    v-for="item in cateList"
-                    :key="item.id"
-                    :label="item.title"
-                    :value="item.id">
-                    </el-option>
-            </el-select>
-            </el-form-item>
-        </el-form>
-          <div slot="footer" class="dialog-footer">
-                <el-button @click="handleCancel">取 消</el-button>
-                <el-button type="primary" @click="handleAddItem">确 定</el-button>
-            </div>
-        </el-dialog>
+          <CardModal ref="card" />
         </div>
 </template>
 <script lang="ts">
 import Vue from 'vue' 
-import {Component} from 'vue-property-decorator'
-import {State} from 'vuex-class'
+import {Component,Ref} from 'vue-property-decorator'
 
-@Component({})
+import CardModal from '@/components/Category/CardModal.vue'
+
+@Component({
+  components:{
+    CardModal
+  }
+})
 export default class Search extends Vue {
-    @State('cateList') cateList:any 
+   @Ref('card')  cardModal
 
-      keyword:String=''
-      centerDialogVisible=false
-
-        form={
-        title:'',
-        content:'',
-        cateId:''
-    }
-
-     formLabelWidth='50px'
+    keyword:String=''
+    centerDialogVisible=false
 
        // 搜索
     handleSearch(){
 
     }
 
-     // 添加卡片
-    handleAddItem(){
-        console.log( this.form);
-       this.handleCancel() 
+    handleShow(){
+        this.cardModal.centerDialogVisible = true 
     }
 
-    // 取消卡片添加
-    handleCancel(){
-         this.centerDialogVisible = false
-        this.clearItemForm()
-    }
-
-    // 清空表单
-    clearItemForm(){
-        this.form={
-             title:'',
-            content:'',
-            cateId:''
-        }
-    }
+   
 }
 </script>
 <style lang="scss">

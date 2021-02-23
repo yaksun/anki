@@ -1,12 +1,17 @@
 const CategoryAPIS ={
     cate_list:{
-        baseUrl: "http://localhost:3000",
-        url: "/cate",
+        baseUrl: "/",
+        url: "api/cate",
         method: "get",
     },
     add_cate:{
-        baseUrl:'http://localhost:3000',
-        url:'/cate',
+        baseUrl:'/',
+        url:'api/cate',
+        method:'post'
+    },
+    del_cate:{
+        baseUrl:'/',
+        url:'api/cate/del',
         method:'post'
     }
 
