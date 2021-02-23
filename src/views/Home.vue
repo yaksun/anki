@@ -1,8 +1,8 @@
 <template>
   <div class="home-template-class">
   <ul >
-    <li v-for="item in list" :key="item.id" @click="handleClick(item.id)">
-      <HomeItem  :item="item" :activeId="activeId" />
+    <li v-if="initList[0]" @click="handleClick(initList[0].id)">
+      <HomeItem  :item="initList[0]" :activeId="activeId" />
     </li>
   </ul>
   </div>
@@ -11,7 +11,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
-import {Mutation} from 'vuex-class'
+import {Mutation,State} from 'vuex-class'
 
 import {HomeServices} from '@/bll/home/HomeServices'
 import {home_result_model_detail} from  '@/model/home/home_result_model'
@@ -28,6 +28,7 @@ import HomeItem from '@/components/Home/HomeItem.vue'
 export default class Home extends Vue{
   @Mutation('SETLIST') setCardList:any
   @Mutation('SETCATELIST') setCateList:any
+  @State('list') initList:any 
 
    list:Array<home_result_model_detail>=[]
     
@@ -48,10 +49,6 @@ export default class Home extends Vue{
      const homeServices = new HomeServices(); 
      const res = await homeServices.getHomeList({})
      if(res &&  res.data){
-       let temp = res.data.sort((n1:any,n2:any)=>{
-         return n1.nextShowTime - n2.nextShowTime
-       })
-       this.list = [temp[0]]
        this.setCardList(res.data)
      }
   }
