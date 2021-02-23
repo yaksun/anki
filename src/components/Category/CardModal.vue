@@ -62,7 +62,8 @@ export default class CardModal extends Vue{
             let params ={
             ...this.form,
             leavel:0,
-            nextShowTime:new Date().getTime() 
+            nextShowTime:new Date().getTime() ,
+            lastShowTime:new Date().getTime() 
         }
         const res = await  this.homeServices.addCard(params)
         if(res){

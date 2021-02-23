@@ -8,7 +8,11 @@
        <p class="oper">
               <i class="iconfont icon-zujian-icon-06" @click="handleEdit(item)"></i>
               <i class="iconfont icon-lajitong" @click="handleDel(item.id)"></i>
-               <span class="time" v-if="item.nextShowTime">敌军还有2天到达战场</span>
+               <span class="time" v-if="item.nextShowTime">
+                   {{ item.nextShowTime>=new Date().getTime() 
+                   ?  `敌军还有${Math.floor((item.nextShowTime - new Date().getTime())/86400000) }天到达战场` 
+                    : `敌军已到达战场${Math.floor((new Date().getTime() - new Date(item.nextShowTime))/86400000)}天`}}
+                   </span>
              <span class="time" v-else>一切还是未知数</span>
        </p>
     </el-card>

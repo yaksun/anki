@@ -16,7 +16,6 @@ import {Mutation} from 'vuex-class'
 import {HomeServices} from '@/bll/home/HomeServices'
 import {home_result_model_detail} from  '@/model/home/home_result_model'
 import {CategoryServices} from '@/bll/category/CategoryServices'
-
 import PubSub from 'pubsub-js'
 
 import HomeItem from '@/components/Home/HomeItem.vue'
@@ -36,10 +35,11 @@ export default class Home extends Vue{
    mounted() {
     this.getList()
     this.getCateList() 
-    PubSub.subscribe('refreshHome',()=>{
-        this.getList()
-        this.getCateList() 
+
+    PubSub.subscribe('refresh',()=>{
+      this.getList()
     })
+
   }
 
 
@@ -48,8 +48,10 @@ export default class Home extends Vue{
      const homeServices = new HomeServices(); 
      const res = await homeServices.getHomeList({})
      if(res &&  res.data){
-       console.log(res)
-       this.list = [res.data[0]]
+       let temp = res.data.sort((n1:any,n2:any)=>{
+         return n1.nextShowTime - n2.nextShowTime
+       })
+       this.list = [temp[0]]
        this.setCardList(res.data)
      }
   }

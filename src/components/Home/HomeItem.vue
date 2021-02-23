@@ -9,7 +9,7 @@
             <div class="back">
               <el-card>
                  <div class="content"> {{item.content}}</div>
-                   <HomeDot :itemId="item.id" />
+                   <HomeDot :item="item" />
               </el-card>
             </div>
         </div>

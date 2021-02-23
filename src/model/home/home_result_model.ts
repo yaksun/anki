@@ -19,6 +19,7 @@ class home_result_model extends base_model {
     public content!:String   // 内容
     public leavel!:Number  // 等级
     public nextShowTime!:Number  // 展示时间
+    public lastShowTime!:Number  // 展示时间
   }
 
 
