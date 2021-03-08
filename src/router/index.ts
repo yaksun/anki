@@ -43,4 +43,24 @@ const router = new VueRouter({
   routes
 })
 
+
+
+// 路由beforeEach判断是否携带token,否则跳转到登录页
+router.beforeEach((to,form,next)=>{
+
+  if(to.path == '/login'){
+      next() 
+  }else{
+      let token = window.sessionStorage.getItem('token')
+      if( !token ){
+          next({path:'/login'})
+         
+      }else{
+          next()
+      }
+  }
+  
+})
+
+
 export default router

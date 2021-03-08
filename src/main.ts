@@ -13,6 +13,7 @@ import {
   Dialog,
   Form,
   FormItem,
+  Message,
   Tag
 } from 'element-ui';
 // import './mock'
@@ -29,6 +30,10 @@ Vue.component(Dialog.name, Dialog);
 Vue.component(Form.name, Form);
 Vue.component(FormItem.name, FormItem);
 Vue.component(Tag.name, Tag);
+Vue.component(Message.name, Message);
+
+
+Vue.prototype.$message = Message;
 
 new Vue({
   router,

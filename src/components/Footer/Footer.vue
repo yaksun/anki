@@ -21,6 +21,7 @@ import {Component,Prop} from 'vue-property-decorator'
 
 })
 export default class Footer extends Vue {
+    $router: any
   
     handleGoto(path){
         this.$router.replace(path)

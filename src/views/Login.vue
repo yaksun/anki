@@ -1,6 +1,6 @@
 <template>
-    <div class="login-template-class">
-       <div class="login-warpper">
+    <div class="login-template-class" >
+       <div class="login-warpper" v-if="!token">
             <h2>ANKI</h2>
             <el-form  :model="ruleForm" :rules="rules" label-width="100px" ref="ruleForm" class="demo-ruleForm">
                 <el-form-item label="用户名" prop="username">
@@ -15,14 +15,18 @@
                 </el-form-item>
             </el-form>
        </div>
+       <div v-else>配置中心</div>
     </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
+import {ProfileServices} from '@/bll/profile/ProfileServices'
 
 @Component({})
 export default class   Login  extends Vue{
+    bll = new ProfileServices()
+    token:any=''
       validateUsernam = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入用户名'));
@@ -55,14 +59,32 @@ export default class   Login  extends Vue{
     }
 
     initStatus:boolean = false 
+  $router: any
 
-    onSubmit(){
-
+    async onSubmit(){
+     
+      let _this = this 
+     const res = await this.bll.dologin({...this.ruleForm})
+      if(res.code === 200 && res.data.data && res.data.data.accessToken){
+        window.sessionStorage.setItem('token',res.data.data.accessToken)
+        _this.$router.push('/home')
+        _this.ruleForm={
+        username:'',
+        password:''
+     }
+      }else{
+        _this.$message(res.data.message)
+      }
+     
     }
 
 
     onCancel(){
 
+    }
+
+    mounted() {
+     this.token =  sessionStorage.getItem('token') || ''
     }
 }
 </script>

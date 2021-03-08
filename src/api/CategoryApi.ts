@@ -1,17 +1,17 @@
 const CategoryAPIS ={
     cate_list:{
-        baseUrl: "/",
-        url: "api/cate",
+        baseUrl: "/api",
+        url: "/cate",
         method: "get",
     },
     add_cate:{
-        baseUrl:'/',
-        url:'api/cate',
+        baseUrl:'/api',
+        url:'/cate',
         method:'post'
     },
     del_cate:{
-        baseUrl:'/',
-        url:'api/cate/del',
+        baseUrl:'/api',
+        url:'/cate/del',
         method:'post'
     }
 

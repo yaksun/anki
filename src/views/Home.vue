@@ -85,7 +85,7 @@ export default class Home extends Vue{
       width:100%;
       height: fit-content;
       &>li{
-        height: 360px;
+        height: 400px;
         padding: 15px 30px;
       }
       
