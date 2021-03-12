@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router'
 
 /**
  * 拆分json  参数为 query
@@ -53,5 +54,32 @@ export const httpAsync=(
     });
 
 }
+
+axios.interceptors.request.use(req=>{
+    if(req.url != 'login'){
+      // 当登录成功后
+      req.headers.Authorization = window.sessionStorage.getItem('token')
+
+  }
+
+  return req 
+})
+
+axios.interceptors.response.use((res)=>{
+
+  // 当token被篡改或超期失效,后台返回401
+  // 请求得到401跳转到登录界面
+  if(res.status == 401){
+          router.push('/login') 
+          //清空sessionStorage
+          sessionStorage.clear() 
+          // 页面刷新
+          window.location.reload()    
+
+  }
+ 
+  return res
+})
+
 
 
