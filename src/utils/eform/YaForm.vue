@@ -2,7 +2,7 @@
       <el-form  :inline="options.inlineStatus"  :model="options.ruleForm" :rules="rules" :label-width="options.labelWidth" ref="ruleForm" class="demo-ruleForm yaForm-template-class">
                     <el-form-item :key="index" v-for="(item,index) in options.columns" :label="item.label"  :prop="item.prop">
                    <template>
-                        <el-input v-if="item.type==='input'" v-model="options.ruleForm[item.field]" :placeholder="item.desc"></el-input>
+                        <ya-input v-if="item.type==='input'" :field="item.field" :placeholder="item.desc" @handleChange="handleChange(arguments)"></ya-input>
                         <el-select v-if="item.type==='select'" v-model="options.ruleForm[item.field]" :placeholder="item.desc">
                         <el-option
                         v-for="item2 in item.dic"
@@ -20,7 +20,12 @@
 import Vue from 'vue'
 import {Component,Watch,Prop} from 'vue-property-decorator'
 
-@Component({})
+import YaInput from '@/utils/eform/YaInput.vue'
+@Component({
+    components:{
+        YaInput
+    }
+})
 export default class YaForm extends Vue{
     @Prop({})
     private options
@@ -73,6 +78,11 @@ export default class YaForm extends Vue{
         }
 
         this.options.initStatus = flag ?  false : true  
+    }
+
+    handleChange(val){
+       
+        this.options.ruleForm[val[1]] = val[0]
     }
 
 }
