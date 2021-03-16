@@ -24,8 +24,9 @@ export default class AutoForm extends Vue{
             columns:[
                 // 当为必选时要加prop
                 {label:'用户名',field:'username',prop:'username',desc:'请输入姓名',type:'input',clearable:true},
-                {label:'密码',field:'password',prop:'password',desc:'请输入身份证号',type:'input',disabled:true,showPassword:true},
+                {label:'密码',field:'password',prop:'password',desc:'请输入身份证号',type:'input',showPassword:true},
                 {label:'性别',field:'sex',prop:'sex',desc:'请选择性别',type:'select',disabled:false,filterable:true,allowCreate:true,multiple:true,dic:[{label:'女',value:'女'},{label:'男',value:'男'}]},
+                {label:'日期',field:'date',prop:'date',desc:'请选择日期',type:'date'}
             ],
             initStatus:true
            

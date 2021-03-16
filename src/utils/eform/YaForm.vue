@@ -3,8 +3,8 @@
                     <el-form-item :key="index" v-for="(item,index) in options.columns" :label="item.label"  :prop="item.prop">
                    <template>
                         <ya-input v-if="item.type==='input' || !item.type" :item="item"  @handleChange="handleChange(arguments)"></ya-input>
-                        <ya-select v-if="item.type==='select'" :item="item"   @handleChange="handleChange(arguments)">
-                        </ya-select>
+                        <ya-select v-if="item.type==='select'" :item="item"   @handleChange="handleChange(arguments)"></ya-select>
+                        <ya-date v-if="item.type==='date'" :item="item"  @handleChange="handleChange(arguments)"></ya-date>
                    </template>
                 </el-form-item>
           <slot></slot>
@@ -16,10 +16,12 @@ import {Component,Watch,Prop} from 'vue-property-decorator'
 
 import YaInput from '@/utils/eform/YaInput.vue'
 import YaSelect from '@/utils/eform/YaSelect.vue'
+import YaDate from '@/utils/eform/YaDate.vue'
 @Component({
     components:{
         YaInput,
-        YaSelect
+        YaSelect,
+        YaDate
     }
 })
 export default class YaForm extends Vue{
@@ -77,7 +79,6 @@ export default class YaForm extends Vue{
     }
 
     handleChange(val){
-       
         this.options.ruleForm[val[1]] = val[0]
     }
 
