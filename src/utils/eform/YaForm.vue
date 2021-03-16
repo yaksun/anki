@@ -2,8 +2,9 @@
       <el-form  :inline="options.inlineStatus"  :model="options.ruleForm" :rules="rules" :label-width="options.labelWidth" ref="ruleForm" class="demo-ruleForm yaForm-template-class">
                     <el-form-item :key="index" v-for="(item,index) in options.columns" :label="item.label"  :prop="item.prop">
                    <template>
-                        <ya-input v-if="item.type==='input'" :item="item"  @handleChange="handleChange(arguments)"></ya-input>
-                        <ya-select v-if="item.type==='select'" :item="item"   @handleChange="handleChange(arguments)"></ya-select>
+                        <ya-input v-if="item.type==='input' || !item.type" :item="item"  @handleChange="handleChange(arguments)"></ya-input>
+                        <ya-select v-if="item.type==='select'" :item="item"   @handleChange="handleChange(arguments)">
+                        </ya-select>
                    </template>
                 </el-form-item>
           <slot></slot>
