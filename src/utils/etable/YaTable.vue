@@ -12,12 +12,14 @@
         :prop="item.prop"
         :label="item.label"
         :width="item.width">
-             <template slot-scope="scope" >
+             <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
                <ya-input  v-if="item.extra.type==='input'" :item="item.extra.option" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)" ></ya-input>
-                <span v-else>{{scope.row[item.prop]}}</span>
+                <ya-date v-if="item.extra.type==='date'" :item="item.extra.option" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)"></ya-date>
+                <div v-if="!item.extra.type">{{scope.row[item.prop]}}</div>
             </div>
             </template>
+             
         </el-table-column>
        
     </el-table>
@@ -37,9 +39,11 @@ import Vue from 'vue'
 import {Component,Prop} from 'vue-property-decorator'
 
 import YaInput from '@/utils/eform/YaInput.vue'
+import YaDate from '@/utils/eform/YaDate.vue'
 @Component({
     components:{
-        YaInput 
+        YaInput ,
+        YaDate
     }
 })
 export default class YaTable extends Vue{

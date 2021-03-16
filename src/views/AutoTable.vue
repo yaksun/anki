@@ -55,7 +55,7 @@ export default class AutoTable extends Vue{
 
     options={
         columns:[
-            {label:'日期',prop:'date',width:'180',extra:{type:'input',option:{ desc:'请输入姓名',field:'date',clearable:true}}},
+            {label:'日期',prop:'date',width:'180',extra:{type:'date',option:{ desc:'输入日期',field:'date',clearable:true}}},
             {label:'姓名',prop:'name',width:'180',extra:{type:'input',option:{ desc:'请输入地址',field:'date',clearable:true}}},
             {label:'状态',prop:'status',width:'180',extra:{}},
             {label:'地址',prop:'address',extra:{type:'input',option:{ desc:'请输入地址',field:'date',clearable:true}}}
