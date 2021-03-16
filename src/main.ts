@@ -14,7 +14,11 @@ import {
   Form,
   FormItem,
   Message,
-  Tag
+  Tag,
+  Table,
+  TableColumn,
+  Pagination,
+  Popover
 } from 'element-ui';
 // import './mock'
 
@@ -30,6 +34,10 @@ Vue.component(Dialog.name, Dialog);
 Vue.component(Form.name, Form);
 Vue.component(FormItem.name, FormItem);
 Vue.component(Tag.name, Tag);
+Vue.component(Table.name, Table);
+Vue.component(TableColumn.name, TableColumn);
+Vue.component(Pagination.name, Pagination);
+Vue.component(Popover.name, Popover);
 Vue.component(Message.name, Message);
 
 

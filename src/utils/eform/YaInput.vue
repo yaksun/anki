@@ -1,6 +1,7 @@
 <template>
     <el-input 
     v-model="value" 
+    :val="val"
     :placeholder="item.desc" 
     :disabled="item.disabled"
     :clearable="item.clearable"
@@ -15,9 +16,15 @@ import {Component,Prop,Watch} from 'vue-property-decorator'
 export default class YaInput extends Vue{
     @Prop({})
     private item
+
+     @Prop({})
+    private val
     
     value="" 
 
+    created(){
+        this.value = this.val
+    }
 
     @Watch('value')
     handleChange(val): void{

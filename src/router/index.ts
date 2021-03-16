@@ -21,6 +21,11 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AutoForm.vue')
   },
   {
+    path: '/table',
+    name: 'Table',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AutoTable.vue')
+  },
+  {
     path: '/cate',
     name: 'Category',
     // route level code-splitting
