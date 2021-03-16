@@ -1,38 +1,31 @@
 <template>
-      <el-form :inline="options.inlineStatus"  :model="options.ruleForm" :rules="rules" :label-width="options.labelWidth" ref="ruleForm" class="demo-ruleForm">
-                <el-form-item :key="index" v-for="(item,index) in options.columns" :label="item.label" :prop="item.prop">
-                    <el-input v-model="options.ruleForm[item.prop]" :placeholder="item.desc"></el-input>
+      <el-form  :inline="options.inlineStatus"  :model="options.ruleForm" :rules="rules" :label-width="options.labelWidth" ref="ruleForm" class="demo-ruleForm yaForm-template-class">
+                    <el-form-item :key="index" v-for="(item,index) in options.columns" :label="item.label"  :prop="item.prop">
+                   <template>
+                        <el-input v-if="item.type==='input'" v-model="options.ruleForm[item.field]" :placeholder="item.desc"></el-input>
+                        <el-select v-if="item.type==='select'" v-model="options.ruleForm[item.field]" :placeholder="item.desc">
+                        <el-option
+                        v-for="item2 in item.dic"
+                        :key="item2.value"
+                        :label="item2.label"
+                        :value="item2.value">
+                        </el-option>
+                        </el-select>
+                   </template>
                 </el-form-item>
-                
-                <el-form-item>
-                    <el-button  type="primary" @click="onSubmit" :disabled="options.initStatus">登录</el-button>
-                    <el-button  type="primary" @click="onCancel" :disabled="options.initStatus">取消</el-button>
-                </el-form-item>
+          <slot></slot>
     </el-form>
 </template>  
 <script lang="ts">
 import Vue from 'vue'
-import {Component,Watch} from 'vue-property-decorator'
+import {Component,Watch,Prop} from 'vue-property-decorator'
 
 @Component({})
 export default class YaForm extends Vue{
+    @Prop({})
+    private options
 
-
-        options={
-            inlineStatus:true,
-            labelWidth:'80px',
-            ruleForm:{
-                username:"",
-                password:""
-            },
-            columns:[
-                {label:'用户名',prop:'username',desc:'请输入姓名'},
-                {label:'密码',prop:'password',desc:'请输入身份证号'}
-            ],
-            initStatus:true
-           
-        }
-
+      
         rules={} 
 
         created() {
@@ -61,16 +54,7 @@ export default class YaForm extends Vue{
         }
      
      
-    onSubmit(){
-        console.log(this.options.ruleForm);
-    }
-
-    onCancel(){
-        this.options.ruleForm={
-             username:'',
-             password:''
-        }
-    }
+ 
 
     @Watch("options.ruleForm", {immediate: true, deep: true})
     handleDisabled(val){
@@ -93,6 +77,10 @@ export default class YaForm extends Vue{
 
 }
 </script>  
-<style lang="">
-    
+<style lang="scss">
+ .yaForm-template-class{
+     .el-select{
+         width:100%;
+     }
+ }   
 </style>
