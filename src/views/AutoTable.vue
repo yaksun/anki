@@ -1,18 +1,25 @@
 <template>
-    <ya-table 
+   <div class="autoTable-template-class">
+     <el-button class="add-btn" @click="handleAdd">添加</el-button>
+      <ya-table 
     :tableData="tableData"
     :options="options"
     ></ya-table>
+    <YaDialog />
+   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
+import {PubSub} from 'pubsub-js'
 
 import YaTable from '@/utils/etable/YaTable.vue'
+import YaDialog from '@/utils/edialog/YaDialog.vue'
 
 @Component({
     components:{
-        YaTable
+        YaTable,
+        YaDialog
     }
 })
 export default class AutoTable extends Vue{
@@ -61,5 +68,20 @@ export default class AutoTable extends Vue{
             {label:'地址',prop:'address',extra:{type:'input',option:{ desc:'请输入地址',field:'address',clearable:true}}}
         ]
     }
+
+    handleAdd(){
+      PubSub.publish('showDialog')
+    }
 }
 </script>
+<style lang="scss">
+.autoTable-template-class{
+   .add-btn {
+    position: absolute;
+    z-index: 10;
+    right: 10px;
+    top: 2px
+   }
+}
+ 
+</style>

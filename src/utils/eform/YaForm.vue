@@ -5,6 +5,7 @@
                         <ya-input v-if="item.type==='input' || !item.type" :item="item"  @handleChange="handleChange(arguments)"></ya-input>
                         <ya-select v-if="item.type==='select'" :item="item"   @handleChange="handleChange(arguments)"></ya-select>
                         <ya-date v-if="item.type==='date'" :item="item"  @handleChange="handleChange(arguments)"></ya-date>
+                        <ya-upload v-if="item.type==='upload'" :item="item"  @handleChange="handleChange(arguments)"></ya-upload>
                    </template>
                 </el-form-item>
           <slot></slot>
@@ -17,11 +18,13 @@ import {Component,Watch,Prop} from 'vue-property-decorator'
 import YaInput from '@/utils/eform/YaInput.vue'
 import YaSelect from '@/utils/eform/YaSelect.vue'
 import YaDate from '@/utils/eform/YaDate.vue'
+import YaUpload from '@/utils/eform/YaUpload.vue'
 @Component({
     components:{
         YaInput,
         YaSelect,
-        YaDate
+        YaDate,
+        YaUpload
     }
 })
 export default class YaForm extends Vue{

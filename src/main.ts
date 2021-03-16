@@ -19,7 +19,8 @@ import {
   TableColumn,
   Pagination,
   Popover,
-  DatePicker
+  DatePicker,
+  Upload
 } from 'element-ui';
 // import './mock'
 
@@ -40,6 +41,7 @@ Vue.component(TableColumn.name, TableColumn);
 Vue.component(Pagination.name, Pagination);
 Vue.component(Popover.name, Popover);
 Vue.component(DatePicker.name, DatePicker);
+Vue.component(Upload.name, Upload);
 Vue.component(Message.name, Message);
 
 

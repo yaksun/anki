@@ -1,23 +1,34 @@
 <template>
-        <ya-form :options="options" class="autoForm-template-class">
-             <el-form-item class="oper-btn">
-                    <el-button  type="primary" @click="onSubmit" :disabled="options.initStatus">登录</el-button>
+    <el-dialog
+    title="提示"
+    :visible.sync="dialogVisible"
+    width="30%"
+  >
+     <ya-form :options="options">
+          <el-form-item class="oper-btn">
+                    <el-button  type="primary" @click="onSubmit" :disabled="options.initStatus">提交</el-button>
                     <el-button  type="primary" @click="onCancel" :disabled="options.initStatus">取消</el-button>
              </el-form-item>
-        </ya-form>
+     </ya-form>
+    </el-dialog>
 </template>
-<script lang="ts"> 
+<script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
+import {PubSub} from 'pubsub-js'
 
 import YaForm from '@/utils/eform/YaForm.vue'
+
 @Component({
     components:{
         YaForm
     }
 })
-export default class AutoForm extends Vue{
-        private options={
+export default class YaDialog extends Vue{
+
+    private dialogVisible=false
+
+     private options={
             inlineStatus:false,
             labelWidth:'80px',
             ruleForm:{},
@@ -48,12 +59,12 @@ export default class AutoForm extends Vue{
         onCancel(){
             this.options.ruleForm={}
         }
+
+
+    mounted(){
+        PubSub.subscribe('showDialog',()=>{
+            this.dialogVisible = true 
+        })
+    }
 }
 </script>
-<style lang="scss">
-   .autoForm-template-class{
-       .oper-btn{
-           text-align: center;
-       }
-   } 
-</style>
