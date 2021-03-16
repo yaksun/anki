@@ -1,7 +1,6 @@
 <template>
     <el-input 
     v-model="value" 
-    :val="val"
     :placeholder="item.desc" 
     :disabled="item.disabled"
     :clearable="item.clearable"

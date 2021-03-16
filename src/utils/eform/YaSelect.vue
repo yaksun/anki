@@ -25,7 +25,14 @@ export default class YaSelect extends Vue{
     @Prop({})
     private item
 
+     @Prop({})
+    private val
+
     private value =""
+
+    created(){
+       this.value = this.val 
+    }
 
     @Watch('value')
     handleChange(val): void{

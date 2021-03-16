@@ -1,7 +1,6 @@
 <template>
       <el-date-picker
       v-model="value"
-      :val="val"
      :placeholder="item.desc" 
      :disabled="item.disabled"
      :clearable="item.clearable"
