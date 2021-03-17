@@ -8,7 +8,7 @@
      <ya-form :options="options" :params="val">
           <el-form-item class="oper-btn">
                     <el-button v-show="val.oper!='detail'" type="primary" @click="onSubmit" :disabled="options.initStatus">提交</el-button>
-                    <el-button  type="primary" @click="onCancel" :disabled="options.initStatus">取消</el-button>
+                    <el-button  type="primary" @click="onCancel" >取消</el-button>
              </el-form-item>
      </ya-form>
     </el-dialog>

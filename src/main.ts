@@ -20,7 +20,8 @@ import {
   Pagination,
   Popover,
   DatePicker,
-  Upload
+  Upload,
+  MessageBox
 } from 'element-ui';
 // import './mock'
 
@@ -43,9 +44,11 @@ Vue.component(Popover.name, Popover);
 Vue.component(DatePicker.name, DatePicker);
 Vue.component(Upload.name, Upload);
 Vue.component(Message.name, Message);
+Vue.component(MessageBox.name, MessageBox);
 
 
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 new Vue({
   router,
