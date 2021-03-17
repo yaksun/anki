@@ -8,21 +8,22 @@
         >
         <el-table-column
         v-for="(item,index) in options.columns"
+        align="center"
         :key="index"
         :prop="item.prop"
         :label="item.label"
         :width="item.width">
              <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
-               <ya-input  v-if="item.extra.type==='input'" :item="item.extra.option" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)" ></ya-input>
-                <ya-date v-if="item.extra.type==='date'" :item="item.extra.option" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)"></ya-date>
-                <ya-select v-if="item.extra.type==='select'" :item="item.extra.option" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)"></ya-select>
-                <div v-if="!item.extra.type">{{scope.row[item.prop]}}</div>
+               <ya-input  v-if="item.type==='input'" :item="item" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)" ></ya-input>
+                <ya-date v-if="item.type==='date'" :item="item" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)"></ya-date>
+                <ya-select v-if="item.type==='select'" :item="item" :val="scope.row[item.prop]"  @handleChange="handleChange(arguments)"></ya-select>
+                <div v-if="!item.type">{{scope.row[item.prop]}}</div>
             </div>
             </template>
-             
+            
         </el-table-column>
-       
+        <slot></slot>
     </el-table>
       <el-pagination
       @size-change="handleSizeChange"

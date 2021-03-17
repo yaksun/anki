@@ -2,10 +2,10 @@
       <el-form  :inline="options.inlineStatus"  :model="options.ruleForm" :rules="rules" :label-width="options.labelWidth" ref="ruleForm" class="demo-ruleForm yaForm-template-class">
                     <el-form-item :key="index" v-for="(item,index) in options.columns" :label="item.label"  :prop="item.prop">
                    <template>
-                        <ya-input v-if="item.type==='input' || !item.type" :item="item"  @handleChange="handleChange(arguments)"></ya-input>
-                        <ya-select v-if="item.type==='select'" :item="item"   @handleChange="handleChange(arguments)"></ya-select>
-                        <ya-date v-if="item.type==='date'" :item="item"  @handleChange="handleChange(arguments)"></ya-date>
-                        <ya-upload v-if="item.type==='upload'" :item="item"  @handleChange="handleChange(arguments)"></ya-upload>
+                        <ya-input v-if="item.type==='input' || !item.type" :item="item" :val="params[item.field]"  @handleChange="handleChange(arguments)"></ya-input>
+                        <ya-select v-if="item.type==='select'" :item="item"  :val="params[item.field]"  @handleChange="handleChange(arguments)"></ya-select>
+                        <ya-date v-if="item.type==='date'" :item="item"  :val="params[item.field]" @handleChange="handleChange(arguments)"></ya-date>
+                        <ya-upload v-if="item.type==='upload'" :item="item" :val="params[item.field]"  @handleChange="handleChange(arguments)"></ya-upload>
                    </template>
                 </el-form-item>
           <slot></slot>
@@ -30,6 +30,10 @@ import YaUpload from '@/utils/eform/YaUpload.vue'
 export default class YaForm extends Vue{
     @Prop({})
     private options
+
+
+     @Prop({})
+    private params
 
       
         rules={} 
@@ -59,8 +63,6 @@ export default class YaForm extends Vue{
            this.rules = obj 
         }
      
-     
- 
 
     @Watch("options.ruleForm", {immediate: true, deep: true})
     handleDisabled(val){

@@ -25,6 +25,7 @@ export default class YaInput extends Vue{
         this.value = this.val
     }
 
+
     @Watch('value')
     handleChange(val): void{
         this.$emit('handleChange',val,this.item.field)
