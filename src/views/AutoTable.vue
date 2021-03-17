@@ -8,7 +8,7 @@
     :tableData="tableData"
     :options="options"
     >
-         <el-table-column align="center"
+      <el-table-column v-if="options.operStatus" align="center"
                          width="180"
                          label="操作">
           <template slot-scope="scope">
@@ -89,6 +89,7 @@ export default class AutoTable extends Vue{
             inlineStatus:false,
             labelWidth:'80px',
             ruleForm:{},
+            operStatus:false,
             columns:[
                 // 当为必选时要加prop
                 //  表头和表单共用配置

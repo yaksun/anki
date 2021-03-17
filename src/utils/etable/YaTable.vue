@@ -105,7 +105,7 @@ export default class YaTable extends Vue{
         height: calc(100% - 40px);
         margin-bottom:4px;
     }
-    .el-table td{
+    .el-table td,.el-table th{
         padding: 0;
     }
     .el-table__body-wrapper{
