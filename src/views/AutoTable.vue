@@ -5,7 +5,7 @@
     :tableData="tableData"
     :options="options"
     >
-     <el-table-column align="center"
+         <el-table-column align="center"
                          width="180"
                          label="操作">
           <template slot-scope="scope">
@@ -28,7 +28,7 @@
                        icon="el-icon-delete"
                        @click="handleDeleteClick(scope.row)"></el-button>
           </template>
-        </el-table-column>
+      </el-table-column>
     </ya-table>
     <YaDialog 
      v-if="isShowDialog"
@@ -53,16 +53,11 @@ import YaDialog from '@/utils/edialog/YaDialog.vue'
     }
 })
 export default class AutoTable extends Vue{
-     tableData= [{
-          date: '2016-05-17',
-          name: '王小虎1',
-          status:"0",
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
+     tableData= [ {
           date: '2016-05-02',
           name: '王小虎2',
           status:"1",
-          address: '上海市普陀区金沙江路 1518 弄'
+          address: '上海市普陀区金沙江路 1518 111弄'
         }, {
           date: '2016-05-04',
           name: '王小虎3',
@@ -82,11 +77,6 @@ export default class AutoTable extends Vue{
           date: '2016-05-06',
           name: '王小虎6',
             status:"0",
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-07',
-          name: '王小虎7',
-            status:"1",
           address: '上海市普陀区金沙江路 1518 弄'
         }]
 
@@ -116,13 +106,21 @@ export default class AutoTable extends Vue{
      
     }
 
-  // 查看详情
+
+       // 查看详情
     handleDetailClick(row){
+       
       // 指定操作类型
-      
       let temp = Object.assign({},row)
-      temp.oper="detail" 
+      temp.title="查看详情" 
+      temp.oper='detail'
       this.val = temp 
+      this.options.columns =  this.options.columns.map(item=>{
+        return {
+          ...item,
+         disabled:true
+        }
+      })
       this.isShowDialog = true 
       
     }
@@ -136,6 +134,7 @@ export default class AutoTable extends Vue{
     handleDeleteClick(val){
 
     }
+  
 
     // 重置数据
     closeDialog(){

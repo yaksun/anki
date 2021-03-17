@@ -39,6 +39,7 @@ export default class YaForm extends Vue{
         rules={} 
 
         created() {
+            
             this.getRules()
         }
 

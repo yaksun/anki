@@ -1,13 +1,13 @@
 <template>
     <el-dialog
-    title="提示"
+    :title="val.title"
     :visible.sync="dialogVisible"
     :before-close="handleInit"
     width="30%"
   >
-     <ya-form :options="options" :params="itemInfo">
+     <ya-form :options="options" :params="val">
           <el-form-item class="oper-btn">
-                    <el-button  type="primary" @click="onSubmit" :disabled="options.initStatus">提交</el-button>
+                    <el-button v-show="val.oper!='detail'" type="primary" @click="onSubmit" :disabled="options.initStatus">提交</el-button>
                     <el-button  type="primary" @click="onCancel" :disabled="options.initStatus">取消</el-button>
              </el-form-item>
      </ya-form>
@@ -28,28 +28,28 @@ export default class YaDialog extends Vue{
     @Prop({})
     private options
 
-      @Prop({})
+    @Prop({})
     private val
 
     @Prop({})
     private isShowDialog
 
     private dialogVisible=false
+    private title=''
+
     itemInfo={}
   
     created(){
-      
         let temp={} 
         this.options.columns.forEach(item=>{
                 temp[item.field]=''
         })
         this.options.ruleForm = temp
+         if(this.val.type==='detail'){
+            this.title='详情'
+        }
 
-            for(let key in this.val){
-              this.itemInfo[key] = this.val[key]
-            }
-          
-            this.dialogVisible = this.isShowDialog
+        this.dialogVisible = this.isShowDialog
     }
 
         onSubmit(){
@@ -58,6 +58,7 @@ export default class YaDialog extends Vue{
 
         onCancel(){
             this.options.ruleForm={}
+            this.handleInit()
         }
 
     // 关闭前清空数据
@@ -65,12 +66,7 @@ export default class YaDialog extends Vue{
        this.$emit('close')
     }
 
-    @Watch('val')
-    handleShow(value){
-        // if(value.oper){
-        //     this.dialogVisible = true
-        // }
-    }
+    
   
 }
 </script>
