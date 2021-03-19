@@ -1,6 +1,6 @@
 <template>
     <div class="login-template-class" >
-       <div class="login-warpper" v-if="!token">
+       <div class="login-warpper" >
             <h2>ANKI</h2>
             <el-form  :model="ruleForm" :rules="rules" label-width="100px" ref="ruleForm" class="demo-ruleForm">
                 <el-form-item label="用户名" prop="username">
@@ -15,7 +15,6 @@
                 </el-form-item>
             </el-form>
        </div>
-       <div v-else>配置中心</div>
     </div>
 </template>
 <script lang="ts">

@@ -15,24 +15,6 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
-  {
-    path: '/form',
-    name: 'Form',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AutoForm.vue')
-  },
-  {
-    path: '/table',
-    name: 'Table',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AutoTable.vue')
-  },
-  {
-    path: '/cate',
-    name: 'Category',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Category.vue')
-  },
  
   {
     path: '/nopage',
@@ -42,10 +24,6 @@ const routes: Array<RouteConfig> = [
   {
     path:'/',
     redirect:'/home'
-  },
-  {
-    path:'*',
-    redirect:'/nopage'
   }
 ]
 
