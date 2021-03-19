@@ -58,10 +58,22 @@ import YaForm from '@/utils/eform/YaForm.vue'
 })
 export default class AutoTable extends Vue{
      tableData= [ {
-          date: '2016-05-02',
-          name: '王小虎2',
-          status:"1",
-          address: '上海市普陀区金沙江路 1518 111弄',
+          trade_date: '2016-05-02',
+          trade_no: '王小虎2',
+          trade_type:"1",
+          security_code: '上海市普',
+          security_name:"xxx",
+          proxy_price:"yyy",
+          real_price:123,
+          sl_price:10.12,
+          tl_price:123.1,
+          commission:45,
+          profit:12,
+          reason:12.45,
+          verify:1.3,
+          floating_loss:123.45,
+          floating_profit:479,
+          remark:"yunnnn",
           imgList:[
             'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
             'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -74,11 +86,29 @@ export default class AutoTable extends Vue{
             'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
           ]
         }, {
-          date: '2016-05-04',
-          name: '王小虎3',
-          status:"0",
-          address: '上海市普陀区金沙江路 1518 弄',
-           imgList:[
+          trade_date: '2016-05-19',
+          trade_no: '王小虎28',
+          trade_type:"1",
+          security_code: '上海市普',
+          security_name:"xxx",
+          proxy_price:"yyy",
+          real_price:123,
+          sl_price:10.12,
+          tl_price:123.1,
+          commission:45,
+          profit:12,
+          reason:12.45,
+          verify:1.3,
+          floating_loss:123.45,
+          floating_profit:479,
+          remark:"yunnnn",
+          imgList:[
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
             'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
             'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
             'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
