@@ -21,7 +21,8 @@ import {
   Popover,
   DatePicker,
   Upload,
-  MessageBox
+  MessageBox,
+  Image
 } from 'element-ui';
 // import './mock'
 
@@ -45,6 +46,8 @@ Vue.component(DatePicker.name, DatePicker);
 Vue.component(Upload.name, Upload);
 Vue.component(Message.name, Message);
 Vue.component(MessageBox.name, MessageBox);
+Vue.component(Image.name, Image);
+
 
 
 Vue.prototype.$message = Message;

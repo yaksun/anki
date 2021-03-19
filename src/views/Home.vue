@@ -1,7 +1,7 @@
 <template>
    <div class="autoTable-template-class">
      <ya-form :options="options2" :params="val">
-       <el-button type="info" @click="handleSearch">搜索</el-button>
+       <el-button  type="primary" @click="handleSearch">搜索</el-button>
       <el-button  @click="handleAdd">添加</el-button>
      </ya-form>
       <HomeTable
@@ -61,57 +61,66 @@ export default class AutoTable extends Vue{
           date: '2016-05-02',
           name: '王小虎2',
           status:"1",
-          address: '上海市普陀区金沙江路 1518 111弄'
+          address: '上海市普陀区金沙江路 1518 111弄',
+          imgList:[
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
+          ]
         }, {
           date: '2016-05-04',
           name: '王小虎3',
           status:"0",
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎4',
-          status:"1",
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎5',
-          status:"0",
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎6',
-            status:"0",
-          address: '上海市普陀区金沙江路 1518 弄'
+          address: '上海市普陀区金沙江路 1518 弄',
+           imgList:[
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
+            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
+          ]
         }]
 
-
-      private options={
-            inlineStatus:false,
+      private options2={
+         inlineStatus:true,
+            labelWidth:'80px',
+            ruleForm:{},
+            initStatus:true,
+        columns:[
+           {label:'时间',field:'trade_date',prop:'trade_date',width:'240',desc:'输入日期',type:'date',clearable:true},
+            {label:'类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
+               {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'}
+        ]
+      }
+        
+      
+      // 头部横向表单配置
+        private options={
+            inlineStatus:true,
             labelWidth:'80px',
             ruleForm:{},
             operStatus:true,
             columns:[
-                // 当为必选时要加prop
-                //  表头和表单共用配置
-                {label:'日期',field:'date',prop:'date',width:'240',desc:'输入日期',type:'date',clearable:true},
-                {label:'姓名',field:'name',prop:'name',width:'180',desc:'请输入姓名',type:'input'},
-                {label:'状态',field:'status',prop:'status',width:'180',desc:'请选择状态',type:'select',dic:[{label:'开启',value:'0'},{label:'关闭',value:'1'}]},
-                {label:'地址',field:'address',prop:'address',desc:'请选择地址',type:'input'},
-            ],
-            initStatus:true
-           
-        }
-
-      // 头部横向表单配置
-        private options2={
-            inlineStatus:true,
-            labelWidth:'80px',
-            ruleForm:{},
-            columns:[
-                {label:'日期',field:'date',prop:'date',width:'240',desc:'输入日期',type:'date',clearable:true},
-                {label:'姓名',field:'name',prop:'name',width:'180',desc:'请输入姓名',type:'input'},
-                {label:'状态',field:'status',prop:'status',width:'180',desc:'请选择状态',type:'select',dic:[{label:'开启',value:'0'},{label:'关闭',value:'1'}]},
-                {label:'地址',field:'address',prop:'address',desc:'请选择地址',type:'input'},
+                {label:'时间',field:'trade_date',prop:'trade_date',width:'240',desc:'输入日期',type:'date',clearable:true},
+                {label:'交易单号',field:'trade_no',prop:'trade_no',width:'180',desc:'请输入单号',type:'input'},
+                {label:'类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
+                {label:'品种编号',field:'security_code',prop:'security_code',desc:'请输入品种编号',type:'input'},
+                {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'},
+                {label:'委托价格',field:'proxy_price',prop:'proxy_price',desc:'请输入委托价格',type:'input'},
+                {label:'成交价格',field:'real_price',prop:'real_price',desc:'请输入成交价格',type:'input'},
+                {label:'止损价格',field:'sl_price',prop:'sl_price',desc:'请输入止损价格',type:'input'},
+                {label:'止盈价格',field:'tl_price',prop:'tl_price',desc:'请输入止盈价格',type:'input'},
+                {label:'佣金',field:'sl_price',prop:'sl_price',desc:'请输入佣金',type:'input'},
+                {label:'利润',field:'profit',prop:'profit',desc:'请输入利润',type:'input'},
+                {label:'买卖理由',field:'reason',prop:'reason',desc:'请输入买卖理由',type:'textarea',autosize:true},
+                {label:'校验',field:'verify',prop:'verify',desc:'请输入校验',type:'input'},
+                {label:'最大浮亏',field:'floating_loss',prop:'floating_loss',desc:'请输入最大浮亏',type:'input'},
+                {label:'最大浮盈',field:'floating_profit',prop:'floating_profit',desc:'请输入最大浮盈',type:'input'},
+                {label:'备注',field:'remark',prop:'remark',desc:'请输入备注',type:'textarea',autosize:true}
             ],
             initStatus:true
            
@@ -215,6 +224,12 @@ export default class AutoTable extends Vue{
    }
    .el-dialog{
      width: 80%  !important;
+       .el-form-item{
+         width: 30%  !important;
+         .el-form-item__content{
+           width: calc( 100% - 80px);
+         }
+       }
    }
    .yaForm-template-class{
      .el-form-item{

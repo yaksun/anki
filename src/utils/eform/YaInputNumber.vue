@@ -1,13 +1,11 @@
 <template>
-    <el-input 
+    <el-input-number 
     v-model="value" 
-    :type="item.type"
-    :autosize="item.autosize"
     :placeholder="item.desc" 
     :disabled="item.disabled"
     :clearable="item.clearable"
     :show-password="item.showPassword"
-    ></el-input>
+    ></el-input-number>
 </template>
 <script lang="ts">
 import Vue from 'vue'

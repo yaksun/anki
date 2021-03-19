@@ -8,13 +8,17 @@
         >
          <el-table-column type="expand">
         <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="商品名称">
-                <span>{{ props.row.name }}</span>
-            </el-form-item>
-            </el-form>
+            <div class="img-warpper">
+                 <el-image 
+                v-for="(item,index) in props.row.imgList"
+                :key="index"
+                style=" height: 200px"
+                :src="props.row.imgList[index]" 
+                :preview-src-list="props.row.imgList">
+            </el-image>
+            </div>
         </template>
-    </el-table-column>
+     </el-table-column>
         <el-table-column
         v-for="(item,index) in options.columns"
         align="center"
@@ -99,11 +103,42 @@ export default class YaTable extends Vue{
       background: rgba(0,0,0,0.1);
       }
 }
+
+@mixin scroll-style2{
+    &::-webkit-scrollbar {
+          height: 20px;
+    }
+      &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.2);
+      }  
+      &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 0;
+      background: rgba(0,0,0,0.1);
+      }
+}
 .yaTable-template-class{
-    height: calc(100vh - 40px);
+    height: calc(100vh - 82px);
     .el-table{
         height: calc(100% - 40px);
         margin-bottom:4px;
+        .img-warpper{
+            height: 300px;
+            display: flex;
+            flex-wrap:nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            overflow: auto;
+             @include scroll-style2;
+            .el-image{
+                width: 23%;
+                flex-shrink: 0;
+                padding: 20px;
+            }
+        }
     }
     .el-table td,.el-table th{
         padding: 0;
@@ -113,5 +148,18 @@ export default class YaTable extends Vue{
         overflow: auto;
          @include scroll-style;
     }
+     .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+    }
+    
 }
 </style>
