@@ -152,7 +152,8 @@ export default class AutoTable extends Vue{
                 {label:'校验',field:'verify',prop:'verify',desc:'请输入校验',type:'input'},
                 {label:'最大浮亏',field:'floating_loss',prop:'floating_loss',desc:'请输入最大浮亏',type:'input'},
                 {label:'最大浮盈',field:'floating_profit',prop:'floating_profit',desc:'请输入最大浮盈',type:'input'},
-                {label:'备注',field:'remark',prop:'remark',desc:'请输入备注',type:'textarea',autosize:true}
+                {label:'备注',field:'remark',desc:'请输入备注',type:'textarea',autosize:true},
+                {label:'图片',field:'imgList',type:'upload',hidden:true,url:'http://www.baidu.com'}
             ],
             initStatus:true
            

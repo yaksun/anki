@@ -1,7 +1,7 @@
 <template>
     <el-upload
     class="avatar-uploader"
-    :action="item.url"
+    :action="item.url ? item.url : '' "
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload">

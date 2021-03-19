@@ -22,7 +22,7 @@
         </template>
      </el-table-column>
         <el-table-column
-        v-for="(item,index) in options.columns"
+        v-for="(item,index) in newColumns"
         align="center"
         :key="index"
         :prop="item.prop"
@@ -97,6 +97,11 @@ export default class YaTable extends Vue{
 
       row_key(row){
           return row.id
+      }
+
+      get newColumns(){
+          let temp = this.options.columns.filter(item=>!item.hidden)
+          return temp 
       }
 
    
