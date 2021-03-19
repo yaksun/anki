@@ -1,6 +1,8 @@
 <template>
     <div class="yaTable-template-class">
         <el-table
+        :row-key="row_key"
+        :expand-row-keys="expandRowKeys"
         :data="tableData"
         :row-class-name="rowClassName" 
         @row-click="handleClick"
@@ -63,6 +65,7 @@ export default class YaTable extends Vue{
 
     currentPage= 4
     currentIndex=0
+    expandRowKeys:any=[]
 
     rowClassName({row, rowIndex}) {       
           //把每一行的索引放进row        
@@ -75,13 +78,25 @@ export default class YaTable extends Vue{
     }
 
     handleClick(row){
-       this.currentIndex = row.index
+       this.currentIndex = row.index;
+       let id:any = this.tableData[this.currentIndex].id 
+          if(this.expandRowKeys.indexOf(id)===-1){
+              this.expandRowKeys=[]
+             this.expandRowKeys.push(id)
+          }else{
+              this.expandRowKeys=[]
+          }
+      
     }
      handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       }
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+      }
+
+      row_key(row){
+          return row.id
       }
 
    

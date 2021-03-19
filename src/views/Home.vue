@@ -58,6 +58,7 @@ import YaForm from '@/utils/eform/YaForm.vue'
 })
 export default class AutoTable extends Vue{
      tableData= [ {
+       id:123,
           trade_date: '2016-05-02',
           trade_no: '王小虎2',
           trade_type:"1",
@@ -86,6 +87,7 @@ export default class AutoTable extends Vue{
             'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
           ]
         }, {
+          id:456,
           trade_date: '2016-05-19',
           trade_no: '王小虎28',
           trade_type:"1",
