@@ -1,6 +1,8 @@
 <template>
     <el-upload
     class="avatar-uploader"
+    drag
+    multiple
     :action="item.url ? item.url : '' "
     :show-file-list="false"
     :on-success="handleAvatarSuccess"

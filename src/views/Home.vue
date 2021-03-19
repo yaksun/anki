@@ -12,24 +12,24 @@
                          width="180"
                          label="操作">
           <template slot-scope="scope">
-            <el-button plain
+            <!-- <el-button plain
                        circle
                        size="mini"
                        type="primary"
                        icon="el-icon-document"
-                       @click="handleDetailClick(scope.row)"></el-button>
+                       @click="handleDetailClick(scope.row)"></el-button> -->
             <el-button plain
                        circle
                        size="mini"
                        type="primary"
                        icon="el-icon-edit"
-                       @click="handleUpdateClick(scope.row)"></el-button>
+                       @click.stop="handleUpdateClick(scope.row)"></el-button>
             <el-button plain
                        circle
                        size="mini"
                        type="danger"
                        icon="el-icon-delete"
-                       @click="handleDeleteClick(scope.row)"></el-button>
+                       @click.stop="handleDeleteClick(scope.row)"></el-button>
           </template>
       </el-table-column>
     </HomeTable>
@@ -255,15 +255,24 @@ export default class AutoTable extends Vue{
     right: 10px;
     top: 2px
    }
-   .el-dialog{
+   .el-dialog__wrapper{
+     overflow: hidden;
+     .el-dialog{
      width: 80%  !important;
+     margin-top: 2vh  !important;
        .el-form-item{
-         width: 30%  !important;
+         width: 30% ;
          .el-form-item__content{
            width: calc( 100% - 80px);
          }
        }
+      .oper-btn{
+        width:100% ;
+        text-align: right;
+      } 
    }
+   }
+   
    .yaForm-template-class{
      .el-form-item{
      margin-top: 20px;

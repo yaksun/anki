@@ -77,7 +77,8 @@ export default class YaTable extends Vue{
         this.tableData[this.currentIndex][val[1]] = val[0]
     }
 
-    handleClick(row){
+    handleClick(row, column, event){
+       
        this.currentIndex = row.index;
        let id:any = this.tableData[this.currentIndex].id 
           if(this.expandRowKeys.indexOf(id)===-1){
@@ -158,6 +159,9 @@ export default class YaTable extends Vue{
                 flex-shrink: 0;
                 padding: 20px;
             }
+        }
+        .el-table__row{
+            cursor: pointer;
         }
     }
     .el-table td,.el-table th{
