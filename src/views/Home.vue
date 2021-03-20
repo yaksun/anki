@@ -59,65 +59,6 @@ import {HomeServices} from '@/bll/home/HomeServices'
 })
 export default class AutoTable extends Vue{
       bll = new HomeServices()
-     tableData= [ {
-       id:123,
-          trade_date: '2016-05-02',
-          trade_no: '王小虎2',
-          trade_type:"1",
-          security_code: '上海市普',
-          security_name:"xxx",
-          proxy_price:"yyy",
-          real_price:123,
-          sl_price:10.12,
-          tl_price:123.1,
-          commission:45,
-          profit:12,
-          reason:12.45,
-          verify:1.3,
-          floating_loss:123.45,
-          floating_profit:479,
-          remark:"yunnnn",
-          imgList:[
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
-          ]
-        }, {
-          id:456,
-          trade_date: '2016-05-19',
-          trade_no: '王小虎28',
-          trade_type:"1",
-          security_code: '上海市普',
-          security_name:"xxx",
-          proxy_price:"yyy",
-          real_price:123,
-          sl_price:10.12,
-          tl_price:123.1,
-          commission:45,
-          profit:12,
-          reason:12.45,
-          verify:1.3,
-          floating_loss:123.45,
-          floating_profit:479,
-          remark:"yunnnn",
-          imgList:[
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png',
-            'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
-          ]
-        }]
 
       private options2={
          inlineStatus:true,
@@ -165,7 +106,7 @@ export default class AutoTable extends Vue{
         private val={}
         private isShowDialog:boolean=false
         private data={}
-        private params={current:1,pageSize:10}
+        private params={current:1,pageSize:20}
 
     mounted(){
         this.getList()

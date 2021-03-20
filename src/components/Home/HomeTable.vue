@@ -34,7 +34,6 @@
        <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page.sync="tableData.current"
       :page-size="tableData.pageSize"
       layout="total, prev, pager, next"
       :total="tableData.total">
@@ -168,7 +167,7 @@ export default class HomeTable extends Vue{
     }
     .el-table__body-wrapper{
         height: calc(100% - 48px );
-        overflow: auto;
+        overflow-y: auto;
          @include scroll-style;
     }
      .demo-table-expand {

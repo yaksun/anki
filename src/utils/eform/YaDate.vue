@@ -1,10 +1,10 @@
 <template>
       <el-date-picker
       v-model="value"
+        type="datetime"
      :placeholder="item.desc" 
      :disabled="item.disabled"
-     :clearable="item.clearable"
-      type="date">
+     :clearable="item.clearable">
     </el-date-picker>
 </template>
 <script lang="ts">
