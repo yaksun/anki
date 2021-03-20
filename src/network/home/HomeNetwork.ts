@@ -42,7 +42,7 @@ export class HomeNetwork{
     public async delCard(params): Promise<any>{
         const resultData: any = await  httpAsync(
             HomeAPIS.del_card.baseUrl,
-            HomeAPIS.del_card.url+'/'+params,
+            HomeAPIS.del_card.url+'/'+params.id,
             HomeAPIS.del_card.method,
             params
         );

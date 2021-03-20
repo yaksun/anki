@@ -37,10 +37,10 @@
     <ya-dialog 
      v-if="isShowDialog"
     :isShowDialog="isShowDialog"
-    @handleAddSubmit="handleAddSubmit"
+    @handleSubmit="handleSubmit"
     :options="options"
-     :val="val" 
-       @close="closeDialog"/>
+    :val="val" 
+    @close="closeDialog"/>
    </div>
 </template>
 <script lang="ts">
@@ -96,8 +96,7 @@ export default class AutoTable extends Vue{
                 {label:'校验',field:'verify',desc:'请输入校验',type:'input'},
                 {label:'最大浮亏',field:'floating_loss',desc:'请输入最大浮亏',type:'input'},
                 {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input'},
-                {label:'备注',field:'remark',desc:'请输入备注',type:'textarea',autosize:true},
-                {label:'图片',field:'imgList',type:'upload',hidden:true,url:'http://www.baidu.com'}
+                {label:'备注',field:'remark',desc:'请输入备注',type:'textarea',autosize:true}
             ],
             initStatus:true
            
@@ -108,6 +107,8 @@ export default class AutoTable extends Vue{
         private isShowDialog:boolean=false
         private data={}
         private params={current:1,pageSize:20}
+        private operStatus='add'
+        private currentId=''
 
     mounted(){
         this.getList()
@@ -161,8 +162,9 @@ export default class AutoTable extends Vue{
     handleUpdateClick(row){
       let temp = Object.assign({},row)
       temp.title="修改数据" 
-      temp.oper='update'
       this.val = temp 
+      this.currentId = row.id
+      this.operStatus='upd'
        this.options.columns =  this.options.columns.map(item=>{
         return {
           ...item,
@@ -180,14 +182,13 @@ export default class AutoTable extends Vue{
           type: 'warning'
         }).then(async () => {
           let params = Object.assign({},{id:val.id})
-          // const res = await this.bll.delApi(params)
-          const res={code:200}
+          const res = await this.bll.delCard(params)
           if(res.code===200){
             this.$message({
               type: 'success',
               message: '删除成功!'
             });
-            //  this.getList()
+             this.getList()
           }else{
               this.$message({
               type: 'info',
@@ -213,23 +214,31 @@ export default class AutoTable extends Vue{
       this.val={}
     }
 
-    // 添加 
-   async handleAddSubmit(val){
+    //提交操作
+   async handleSubmit(val){
      let temp=['proxy_price','real_price','sl_price','tl_price','commission','profit','verify','floating_loss','floating_profit']
       for(let key in val){
         if(temp.indexOf(key)!= -1){
           val[key] = this.changeNumber(val[key])
         }
       }
-
-     const res = await this.bll.addCard(val)
-      if(res.data && res.data.msg==='success'){
-        this.closeDialog() 
-        this.getList() 
+      let res 
+      if(this.operStatus==='upd'){
+          val['id'] = this.currentId
+           res = await this.bll.updCard(val)
+        
+      }else{
+         res = await this.bll.addCard(val)
+       
       }
-     
 
+       if(res.data && res.data.msg==='success'){
+          this.closeDialog() 
+          this.getList() 
+        }
     }
+
+ 
 
     changeNumber(val){
       let temp = parseFloat(val) 

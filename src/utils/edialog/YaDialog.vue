@@ -53,8 +53,7 @@ export default class YaDialog extends Vue{
     }
 
         onSubmit(){
-            console.log(this.options.ruleForm);
-            this.$emit('handleAddSubmit',this.options.ruleForm)
+          this.$emit('handleSubmit',this.options.ruleForm)  
          }
 
         onCancel(){

@@ -25,7 +25,7 @@
         v-for="(item,index) in newColumns"
         align="center"
         :key="index"
-        :prop="item.prop"
+        :prop="item.field"
         :label="item.label"
         :width="item.width">
         </el-table-column>
