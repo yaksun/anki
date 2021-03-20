@@ -3,7 +3,7 @@
         <el-table
         :row-key="row_key"
         :expand-row-keys="expandRowKeys"
-        :data="tableData"
+        :data="tableData.data"
         :row-class-name="rowClassName" 
         @row-click="handleClick"
         border
@@ -31,14 +31,13 @@
         </el-table-column>
       <slot></slot>
     </el-table>
-      <el-pagination
+       <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :current-page.sync="tableData.current"
+      :page-size="tableData.pageSize"
+      layout="total, prev, pager, next"
+      :total="tableData.total">
     </el-pagination>
     </div>
 </template>
@@ -56,7 +55,7 @@ import YaSelect from '@/utils/eform/YaSelect.vue'
         YaSelect
     }
 })
-export default class YaTable extends Vue{
+export default class HomeTable extends Vue{
     @Prop({})
     private tableData
 
@@ -93,7 +92,7 @@ export default class YaTable extends Vue{
         console.log(`每页 ${val} 条`);
       }
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+        this.$emit('changeCurrent',val)
       }
 
       row_key(row){

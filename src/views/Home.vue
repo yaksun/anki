@@ -5,8 +5,9 @@
       <el-button  @click="handleAdd">添加</el-button>
      </ya-form>
       <HomeTable
-    :tableData="tableData"
+    :tableData="data"
     :options="options"
+    @changeCurrent="changeCurrent"
     >
       <el-table-column v-if="options.operStatus" align="center"
                          width="180"
@@ -48,7 +49,7 @@ import {Component} from 'vue-property-decorator'
 import HomeTable from '@/components/Home/HomeTable.vue'
 import YaDialog from '@/utils/edialog/YaDialog.vue'
 import YaForm from '@/utils/eform/YaForm.vue'
-
+import {HomeServices} from '@/bll/home/HomeServices'
 @Component({
     components:{
         HomeTable,
@@ -57,6 +58,7 @@ import YaForm from '@/utils/eform/YaForm.vue'
     }
 })
 export default class AutoTable extends Vue{
+      bll = new HomeServices()
      tableData= [ {
        id:123,
           trade_date: '2016-05-02',
@@ -162,7 +164,25 @@ export default class AutoTable extends Vue{
 
         private val={}
         private isShowDialog:boolean=false
+        private data={}
+        private params={current:1,pageSize:10}
 
+    mounted(){
+        this.getList()
+    }
+
+   async getList(){
+    
+    const res = await  this.bll.getHomeList(this.params)
+     
+      this.data = res.data 
+      
+    }
+
+    changeCurrent(val){
+      this.params.current = val 
+      this.getList()
+    }
 
     handleAdd(){
       let temp={title:'添加数据'}
