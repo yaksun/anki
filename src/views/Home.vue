@@ -115,7 +115,12 @@ export default class AutoTable extends Vue{
    async getList(){
     
     const res = await  this.bll.getHomeList(this.params)
-     
+     res.data.data =  res.data.data.map(item=>{
+        return {
+          ...item,
+          cate:item.cate ? {img_path:item.cate.img_path.split(','),thumb_path:item.cate.thumb_path.split(',')} : {img_path:[],thumb_path:[]}
+        }
+     })
       this.data = res.data 
       
     }

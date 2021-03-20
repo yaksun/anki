@@ -6,7 +6,7 @@ class home_result_model extends base_model {
     }
   
     /*** 明细数据**/
-    public data!: home_result_model_detail[];
+    public data!: any;
   
     // public detailData!: building_result_model_detail;
   }

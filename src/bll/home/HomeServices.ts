@@ -10,7 +10,7 @@ export class HomeServices{
 
         let data = new home_result_model();
         data.code = resultData.code;
-        data.data = <home_result_model_detail[]>resultData;
+        data.data = resultData;
         data.message = resultData.message;
         data.expendTime = endDateTime - startDateTime;
 

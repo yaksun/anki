@@ -12,11 +12,11 @@
         <template slot-scope="props">
             <div class="img-warpper">
                  <el-image 
-                v-for="(item,index) in props.row.imgList"
+                v-for="(item,index) in props.row.cate.thumb_path"
                 :key="index"
                 style=" height: 200px"
-                :src="props.row.imgList[index]" 
-                :preview-src-list="props.row.imgList">
+                :src="props.row.cate.thumb_path[index]" 
+                :preview-src-list="props.row.cate.img_path">
             </el-image>
             </div>
         </template>
@@ -72,13 +72,13 @@ export default class HomeTable extends Vue{
 
    
      handleChange(val){
-        this.tableData[this.currentIndex][val[1]] = val[0]
+        this.tableData.data[this.currentIndex][val[1]] = val[0]
     }
 
     handleClick(row, column, event){
        
        this.currentIndex = row.index;
-       let id:any = this.tableData[this.currentIndex].id 
+       let id:any = this.tableData.data[this.currentIndex].id 
           if(this.expandRowKeys.indexOf(id)===-1){
               this.expandRowKeys=[]
              this.expandRowKeys.push(id)
