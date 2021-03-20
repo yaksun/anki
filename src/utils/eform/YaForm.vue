@@ -86,7 +86,7 @@ export default class YaForm extends Vue{
     }
 
     handleChange(val){
-        this.options.ruleForm[val[1]] = val[0]
+        this.options.ruleForm[val[1]] = val[0] ? val[0] : ''
     }
 
 }

@@ -37,6 +37,7 @@
     <ya-dialog 
      v-if="isShowDialog"
     :isShowDialog="isShowDialog"
+    @handleAddSubmit="handleAddSubmit"
     :options="options"
      :val="val" 
        @close="closeDialog"/>
@@ -81,20 +82,20 @@ export default class AutoTable extends Vue{
             operStatus:true,
             columns:[
                 {label:'时间',field:'trade_date',prop:'trade_date',width:'240',desc:'输入日期',type:'date',clearable:true},
-                {label:'交易单号',field:'trade_no',prop:'trade_no',width:'180',desc:'请输入单号',type:'input'},
+                {label:'交易单号',field:'trade_no',width:'180',desc:'请输入单号',type:'input'},
                 {label:'类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
                 {label:'品种编号',field:'security_code',prop:'security_code',desc:'请输入品种编号',type:'input'},
                 {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'},
-                {label:'委托价格',field:'proxy_price',prop:'proxy_price',desc:'请输入委托价格',type:'input'},
+                {label:'委托价格',field:'proxy_price',desc:'请输入委托价格',type:'input'},
                 {label:'成交价格',field:'real_price',prop:'real_price',desc:'请输入成交价格',type:'input'},
-                {label:'止损价格',field:'sl_price',prop:'sl_price',desc:'请输入止损价格',type:'input'},
-                {label:'止盈价格',field:'tl_price',prop:'tl_price',desc:'请输入止盈价格',type:'input'},
-                {label:'佣金',field:'sl_price',prop:'sl_price',desc:'请输入佣金',type:'input'},
-                {label:'利润',field:'profit',prop:'profit',desc:'请输入利润',type:'input'},
-                {label:'买卖理由',field:'reason',prop:'reason',desc:'请输入买卖理由',type:'textarea',autosize:true},
-                {label:'校验',field:'verify',prop:'verify',desc:'请输入校验',type:'input'},
-                {label:'最大浮亏',field:'floating_loss',prop:'floating_loss',desc:'请输入最大浮亏',type:'input'},
-                {label:'最大浮盈',field:'floating_profit',prop:'floating_profit',desc:'请输入最大浮盈',type:'input'},
+                {label:'止损价格',field:'sl_price',desc:'请输入止损价格',type:'input'},
+                {label:'止盈价格',field:'tl_price',desc:'请输入止盈价格',type:'input'},
+                {label:'佣金',field:'sl_price',desc:'请输入佣金',type:'input'},
+                {label:'利润',field:'profit',desc:'请输入利润',type:'input'},
+                {label:'买卖理由',field:'reason',desc:'请输入买卖理由',type:'textarea',autosize:true},
+                {label:'校验',field:'verify',desc:'请输入校验',type:'input'},
+                {label:'最大浮亏',field:'floating_loss',desc:'请输入最大浮亏',type:'input'},
+                {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input'},
                 {label:'备注',field:'remark',desc:'请输入备注',type:'textarea',autosize:true},
                 {label:'图片',field:'imgList',type:'upload',hidden:true,url:'http://www.baidu.com'}
             ],
@@ -210,6 +211,29 @@ export default class AutoTable extends Vue{
     closeDialog(){
       this.isShowDialog = false
       this.val={}
+    }
+
+    // 添加 
+   async handleAddSubmit(val){
+     let temp=['proxy_price','real_price','sl_price','tl_price','commission','profit','verify','floating_loss','floating_profit']
+      for(let key in val){
+        if(temp.indexOf(key)!= -1){
+          val[key] = this.changeNumber(val[key])
+        }
+      }
+
+     const res = await this.bll.addCard(val)
+      if(res.data && res.data.msg==='success'){
+        this.closeDialog() 
+        this.getList() 
+      }
+     
+
+    }
+
+    changeNumber(val){
+      let temp = parseFloat(val) 
+      return  temp ? temp.toFixed(2) : 0
     }
 }
 </script>
