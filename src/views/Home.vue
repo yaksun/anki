@@ -1,7 +1,7 @@
 <template>
    <div class="autoTable-template-class">
-     <ya-form :options="options2" :params="val">
-       <el-button  type="primary" @click="handleSearch">搜索</el-button>
+     <ya-form :options="options2" :params="val" class="search-warpper">
+       <el-button  type="primary" @click="handleSearch" >搜索</el-button>
       <el-button  @click="handleAdd">添加</el-button>
      </ya-form>
       <HomeTable
@@ -45,7 +45,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import {Component} from 'vue-property-decorator'
+import {Component,Watch} from 'vue-property-decorator'
 
 import HomeTable from '@/components/Home/HomeTable.vue'
 import YaDialog from '@/utils/edialog/YaDialog.vue'
@@ -67,9 +67,10 @@ export default class AutoTable extends Vue{
             ruleForm:{},
             initStatus:true,
         columns:[
-           {label:'时间',field:'trade_date',prop:'trade_date',width:'240',desc:'输入日期',type:'date',clearable:true},
-            {label:'类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
-               {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'}
+           {label:'时间',field:'trade_date_begin',desc:'输入日期',type:'date',clearable:true},
+           {label:'~',field:'trade_date_end',desc:'输入日期',type:'date',clearable:true},
+            {label:'类型',field:'trade_type',desc:'请输入类型',type:'input',clearable:true},
+               {label:'品种',field:'security_name',desc:'请输入品种名称',type:'input',clearable:true}
         ]
       }
         
@@ -86,16 +87,16 @@ export default class AutoTable extends Vue{
                 {label:'类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
                 {label:'品种编号',field:'security_code',prop:'security_code',desc:'请输入品种编号',type:'input'},
                 {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'},
-                {label:'委托价格',field:'proxy_price',desc:'请输入委托价格',type:'input'},
-                {label:'成交价格',field:'real_price',prop:'real_price',desc:'请输入成交价格',type:'input'},
-                {label:'止损价格',field:'sl_price',desc:'请输入止损价格',type:'input'},
-                {label:'止盈价格',field:'tl_price',desc:'请输入止盈价格',type:'input'},
-                {label:'佣金',field:'sl_price',desc:'请输入佣金',type:'input'},
-                {label:'利润',field:'profit',desc:'请输入利润',type:'input'},
+                {label:'委托价格',field:'proxy_price',desc:'请输入委托价格',type:'input',show:'number'},
+                {label:'成交价格',field:'real_price',prop:'real_price',desc:'请输入成交价格',type:'input',show:'number'},
+                {label:'止损价格',field:'sl_price',desc:'请输入止损价格',type:'input',show:'number'},
+                {label:'止盈价格',field:'tl_price',desc:'请输入止盈价格',type:'input',show:'number'},
+                {label:'佣金',field:'sl_price',desc:'请输入佣金',type:'input',show:'number'},
+                {label:'利润',field:'profit',desc:'请输入利润',type:'input',show:'number'},
                 {label:'买卖理由',field:'reason',desc:'请输入买卖理由',type:'textarea',autosize:true},
-                {label:'校验',field:'verify',desc:'请输入校验',type:'input'},
-                {label:'最大浮亏',field:'floating_loss',desc:'请输入最大浮亏',type:'input'},
-                {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input'},
+                {label:'校验',field:'verify',desc:'请输入校验',type:'input',show:'number'},
+                {label:'最大浮亏',field:'floating_loss',desc:'请输入最大浮亏',type:'input',show:'number'},
+                {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input',show:'number'},
                 {label:'备注',field:'remark',desc:'请输入备注',type:'textarea',autosize:true}
             ],
             initStatus:true
@@ -123,6 +124,18 @@ export default class AutoTable extends Vue{
           cate:item.cate ? {img_path:item.cate.img_path.split(','),thumb_path:item.cate.thumb_path.split(',')} : {img_path:[],thumb_path:[]}
         }
      })
+    let arr:any=[] 
+    this.options.columns.forEach(item=>{
+       if(item.show==='number'){
+         arr.push(item.field)
+       }
+    })
+    res.data.data.forEach(item=>{
+       arr.forEach(mini=>{
+         item[mini] = parseInt(item[mini]*100+'')/100
+       })
+    })
+
       this.data = res.data 
       
     }
@@ -204,8 +217,24 @@ export default class AutoTable extends Vue{
     }
 
     // 搜索操作
-    handleSearch(){
+   async handleSearch(){
+       if(this.options2.ruleForm['trade_date_begin'] && this.options2.ruleForm['trade_date_end'] && new Date(this.options2.ruleForm['trade_date_begin']).getTime()>new Date(this.options2.ruleForm['trade_date_end']).getTime()){
+             this.$message({
+            type: 'warning',
+            message: '开始时间不能大于结束时间'
+          });   
 
+          return ;
+        }
+        const res = await this.bll.getHomeList({...this.params,...this.options2.ruleForm})
+          res.data.data =  res.data.data.map(item=>{
+          return {
+            ...item,
+            cate:item.cate ? {img_path:item.cate.img_path.split(','),thumb_path:item.cate.thumb_path.split(',')} : {img_path:[],thumb_path:[]}
+          }
+      })
+        this.data = res.data 
+        
     }
 
     // 重置数据
@@ -244,6 +273,8 @@ export default class AutoTable extends Vue{
       let temp = parseFloat(val) 
       return  temp ? temp.toFixed(2) : 0
     }
+
+  
 }
 </script>
 <style lang="scss">
@@ -280,7 +311,15 @@ export default class AutoTable extends Vue{
       margin-top: 20px;
     }
    }
-   
+   .search-warpper{
+     .el-form-item{
+       &:nth-child(2){
+         .el-form-item__label{
+           width: 0px  !important;
+         }
+       }
+     }
+   }
    
 }
  
