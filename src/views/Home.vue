@@ -40,7 +40,9 @@
     @handleSubmit="handleSubmit"
     :options="options"
     :val="val" 
-    @close="closeDialog"/>
+    @close="closeDialog">
+      <YaUpload @handleImgUrl="handleImgUrl"/>
+    </ya-dialog>
    </div>
 </template>
 <script lang="ts">
@@ -51,15 +53,20 @@ import HomeTable from '@/components/Home/HomeTable.vue'
 import YaDialog from '@/utils/edialog/YaDialog.vue'
 import YaForm from '@/utils/eform/YaForm.vue'
 import {HomeServices} from '@/bll/home/HomeServices'
+import {CategoryServices} from '@/bll/category/CategoryServices'
+import YaUpload from '@/utils/eform/YaUpload.vue'
+import moment  from 'moment'
 @Component({
     components:{
         HomeTable,
         YaDialog,
-        YaForm
+        YaForm,
+        YaUpload
     }
 })
 export default class AutoTable extends Vue{
       bll = new HomeServices()
+      cate = new CategoryServices()
 
       private options2={
          inlineStatus:true,
@@ -110,13 +117,14 @@ export default class AutoTable extends Vue{
         private params={current:1,pageSize:20}
         private operStatus='add'
         private currentId=''
+        private imgArr:any=[] 
 
     mounted(){
         this.getList()
     }
 
    async getList(){
-    
+  
     const res = await  this.bll.getHomeList(this.params)
      res.data.data =  res.data.data.map(item=>{
         return {
@@ -245,28 +253,45 @@ export default class AutoTable extends Vue{
 
     //提交操作
    async handleSubmit(val){
+      const url = await this.cate.addCate({
+           img_path:this.imgArr.join(','),
+           thumb_path:this.imgArr.join(',')
+         })
+
      let temp=['proxy_price','real_price','sl_price','tl_price','commission','profit','verify','floating_loss','floating_profit']
       for(let key in val){
         if(temp.indexOf(key)!= -1){
           val[key] = this.changeNumber(val[key])
         }
       }
-      let res 
-      if(this.operStatus==='upd'){
+      
+      val['trade_date'] = moment(new Date(val['trade_date'])).format('YYYY-MM-DD HH:mm:ss')
+
+      let res ;
+      
+      if(url.data && url.data.msg==='success'){
+         if(this.operStatus==='upd'){
           val['id'] = this.currentId
-           res = await this.bll.updCard(val)
-        
+          res = await this.bll.updCard(val)
       }else{
-         res = await this.bll.addCard(val)
-       
+        val['cateId'] = url.data.id
+        res = await this.bll.addCard(val)
+        
       }
 
        if(res.data && res.data.msg==='success'){
           this.closeDialog() 
           this.getList() 
         }
+      }
     }
 
+  // 获取图片连接
+    handleImgUrl(val){
+        if(val){
+          this.imgArr.push('/api/'+val)
+        }
+    }
  
 
     changeNumber(val){

@@ -13,6 +13,7 @@
     "element-ui": "^2.15.0",
     "markdown-loader": "^6.0.0",
     "mockjs": "^1.1.0",
+    "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "pubsub-js": "^1.9.2",
     "sass-loader": "^10.1.1",

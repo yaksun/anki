@@ -28,10 +28,7 @@
         :prop="item.field"
         :label="item.label"
         :width="item.width">
-        <!-- <template slot-scope="scope">
-        <span v-if="item.show==='number'">{{ parseInt(scope.row[item.field]*100)/100 }}</span>
-        <span v-else>{{ scope.row[item.field] }}</span>
-        </template> -->
+       
         </el-table-column>
       <slot></slot>
     </el-table>

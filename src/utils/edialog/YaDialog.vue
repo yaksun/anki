@@ -6,6 +6,7 @@
     width="30%"
   >
      <ya-form :options="options" :params="val">
+         <slot></slot>
           <el-form-item class="oper-btn">
                     <el-button v-show="val.oper!='detail'" type="primary" @click="onSubmit" :disabled="options.initStatus">提交</el-button>
                     <el-button  type="primary" @click="onCancel" >取消</el-button>
