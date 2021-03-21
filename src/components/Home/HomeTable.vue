@@ -9,14 +9,14 @@
         border
         >
          <el-table-column type="expand">
-        <template slot-scope="props">
+        <template>
             <div class="img-warpper">
                  <el-image 
-                v-for="(item,index) in props.row.cate.thumb_path"
+                v-for="(item,index) in info.thumb_path"
                 :key="index"
                 style=" height: 200px"
-                :src="props.row.cate.thumb_path[index]" 
-                :preview-src-list="props.row.cate.img_path">
+                :src="info.thumb_path[index]" 
+                :preview-src-list="info.img_path">
             </el-image>
             </div>
         </template>
@@ -44,6 +44,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component,Prop} from 'vue-property-decorator'
+import {CategoryServices} from '@/bll/category/CategoryServices'
 
 import YaInput from '@/utils/eform/YaInput.vue'
 import YaDate from '@/utils/eform/YaDate.vue'
@@ -62,9 +63,15 @@ export default class HomeTable extends Vue{
    @Prop({})
    private options
 
+   bll = new CategoryServices()
+
     currentPage= 4
     currentIndex=0
     expandRowKeys:any=[]
+    info={
+        thumb_path:[],
+        img_path:[]
+    }
 
     rowClassName({row, rowIndex}) {       
           //把每一行的索引放进row        
@@ -76,12 +83,20 @@ export default class HomeTable extends Vue{
         this.tableData.data[this.currentIndex][val[1]] = val[0]
     }
 
-    handleClick(row, column, event){
+    async handleClick(row, column, event){
        
        this.currentIndex = row.index;
        let id:any = this.tableData.data[this.currentIndex].id 
+       let cateId:any = this.tableData.data[this.currentIndex].cateId 
+
           if(this.expandRowKeys.indexOf(id)===-1){
               this.expandRowKeys=[]
+            const res = await  this.bll.findCate({id:cateId}) 
+            if(res.data && res.data.msg==='success'){
+                    this.info.thumb_path = res.data.thumb_path.split(',')
+                    this.info.img_path = res.data.img_path.split(',')
+            }
+        
              this.expandRowKeys.push(id)
           }else{
               this.expandRowKeys=[]

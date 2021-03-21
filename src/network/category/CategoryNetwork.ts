@@ -47,4 +47,15 @@ export class CategoryNetwork{
 
         return resultData
     }
+
+
+    public async findCate(params): Promise<any>{
+        const resultData: any = await  httpAsync(
+            CategoryAPIS.cate_list.baseUrl,
+            CategoryAPIS.cate_list.url+'/'+params.id,
+            CategoryAPIS.cate_list.method
+        );
+
+        return resultData
+    }
 }

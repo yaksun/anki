@@ -62,4 +62,19 @@ export class CategoryServices{
 
         return data;
     }
+
+    public async findCate(params){
+        let network = new CategoryNetwork()
+        let startDateTime = new Date().getTime();
+        const resultData:any = await network.findCate(params)
+        let endDateTime = new Date().getTime();
+
+        let data = new cate_result_model();
+        data.code = resultData.code;
+        data.data = resultData;
+        data.message = resultData.message;
+        data.expendTime = endDateTime - startDateTime;
+
+        return data;
+    }
 }
