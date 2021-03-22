@@ -98,7 +98,7 @@ export default class AutoTable extends Vue{
                 {label:'品种编号',field:'security_code',prop:'security_code',desc:'请输入品种编号',type:'input'},
                 {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'},
                 {label:'委托价格',field:'proxy_price',desc:'请输入委托价格',type:'input',show:'number'},
-                {label:'成交价格',field:'real_price',prop:'real_price',desc:'请输入成交价格',type:'input',show:'number'},
+                {label:'成交价格',field:'real_price',desc:'请输入成交价格',type:'input',show:'number'},
                 {label:'止损价格',field:'sl_price',desc:'请输入止损价格',type:'input',show:'number'},
                 {label:'止盈价格',field:'tl_price',desc:'请输入止盈价格',type:'input',show:'number'},
                 {label:'佣金',field:'sl_price',desc:'请输入佣金',type:'input',show:'number'},
@@ -260,6 +260,7 @@ export default class AutoTable extends Vue{
     closeDialog(){
       this.isShowDialog = false
       this.val={}
+      this.operStatus='add'
     }
 
     //提交操作
