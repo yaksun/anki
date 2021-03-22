@@ -41,7 +41,10 @@
     :options="options"
     :val="val" 
     @close="closeDialog">
-      <YaUpload @handleImgUrl="handleImgUrl" :item="val.cate"/>
+      <YaUpload
+      @handleRemoveImgUrl="handleRemoveImgUrl"
+       @handleImgUrl="handleImgUrl" 
+       :item="val.cate"/>
     </ya-dialog>
    </div>
 </template>
@@ -188,6 +191,7 @@ export default class AutoTable extends Vue{
       this.val = temp 
       this.currentId = row.id
       this.cateId = row.cateId
+      this.imgArr = (this.val as any).cate.thumb_path
       this.operStatus='upd'
        this.options.columns =  this.options.columns.map(item=>{
         return {
@@ -309,6 +313,12 @@ export default class AutoTable extends Vue{
         if(val){
           this.imgArr.push('/api/'+val)
         }
+    }
+
+    // 删除图片连接
+    handleRemoveImgUrl(value){
+      this.imgArr = this.imgArr.filter(item=>item!=value)
+     
     }
  
 

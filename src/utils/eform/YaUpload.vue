@@ -48,7 +48,7 @@ export default class YaUpload extends Vue{
       }
 
       beforeRemove(file, fileList) {
-      //  this.$emit('handleImgUrl',file.url.substring())
+        this.$emit('handleRemoveImgUrl',file.url)
       }
 
       checkType(file,fileList){
