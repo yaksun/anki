@@ -8,15 +8,15 @@
         @row-click="handleClick"
         border
         >
-         <el-table-column type="expand">
-        <template>
+         <el-table-column type="expand" >
+        <template slot-scope="props">
             <div class="img-warpper">
                  <el-image 
-                v-for="(item,index) in info.thumb_path"
+                v-for="(item,index) in props.row.cate.thumb_path"
                 :key="index"
                 style=" height: 200px"
-                :src="info.thumb_path[index]" 
-                :preview-src-list="info.img_path">
+                :src="props.row.cate.thumb_path[index]" 
+                :preview-src-list="props.row.cate.img_path">
             </el-image>
             </div>
         </template>
@@ -87,15 +87,15 @@ export default class HomeTable extends Vue{
        
        this.currentIndex = row.index;
        let id:any = this.tableData.data[this.currentIndex].id 
-       let cateId:any = this.tableData.data[this.currentIndex].cateId 
+    //    let cateId:any = this.tableData.data[this.currentIndex].cateId 
 
           if(this.expandRowKeys.indexOf(id)===-1){
               this.expandRowKeys=[]
-            const res = await  this.bll.findCate({id:cateId}) 
-            if(res.data && res.data.msg==='success'){
-                    this.info.thumb_path = res.data.thumb_path.split(',')
-                    this.info.img_path = res.data.img_path.split(',')
-            }
+            // const res = await  this.bll.findCate({id:cateId}) 
+            // if(res.data && res.data.msg==='success'){
+            //         this.info.thumb_path = res.data.thumb_path.split(',')
+            //         this.info.img_path = res.data.img_path.split(',')
+            // }
         
              this.expandRowKeys.push(id)
           }else{

@@ -41,7 +41,7 @@
     :options="options"
     :val="val" 
     @close="closeDialog">
-      <YaUpload @handleImgUrl="handleImgUrl"/>
+      <YaUpload @handleImgUrl="handleImgUrl" :item="val.cate"/>
     </ya-dialog>
    </div>
 </template>
@@ -66,9 +66,9 @@ import moment  from 'moment'
 })
 export default class AutoTable extends Vue{
       bll = new HomeServices()
-      cate = new CategoryServices()
+      cate = new CategoryServices();
 
-      private options2={
+       options2={
          inlineStatus:true,
             labelWidth:'80px',
             ruleForm:{},
@@ -83,7 +83,7 @@ export default class AutoTable extends Vue{
         
       
       // 头部横向表单配置
-        private options={
+         options={
             inlineStatus:true,
             labelWidth:'80px',
             ruleForm:{},
@@ -111,13 +111,13 @@ export default class AutoTable extends Vue{
         }
 
 
-        private val={}
-        private isShowDialog:boolean=false
-        private data={}
-        private params={current:1,pageSize:20}
-        private operStatus='add'
-        private currentId=''
-        private imgArr:any=[] 
+         val={}
+         isShowDialog:boolean=false
+         data={}
+         params={current:1,pageSize:20}
+         operStatus='add'
+         currentId=''
+         imgArr:any=[] 
 
     mounted(){
         this.getList()
@@ -268,6 +268,7 @@ export default class AutoTable extends Vue{
       val['trade_date'] = moment(new Date(val['trade_date'])).format('YYYY-MM-DD HH:mm:ss')
 
       let res ;
+      let imgRes
       
       if(url.data && url.data.msg==='success'){
          if(this.operStatus==='upd'){
@@ -277,11 +278,21 @@ export default class AutoTable extends Vue{
         val['cateId'] = url.data.id
         res = await this.bll.addCard(val)
         
+        
       }
 
        if(res.data && res.data.msg==='success'){
-          this.closeDialog() 
-          this.getList() 
+          let params={ 
+           cardId:res.data.id,
+           img_path:this.imgArr.join(','),
+           thumb_path:this.imgArr.join(',')
+
+         }
+         const imgRes = await this.cate.addCate(params)
+         if(imgRes.data && imgRes.data.msg==='success'){
+            this.closeDialog() 
+            this.getList() 
+         }
         }
       }
     }

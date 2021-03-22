@@ -3,6 +3,7 @@
     class="avatar-uploader"
       drag
       list-type="picture-card"
+      :file-list="fileList"
     action="none"
     :auto-upload="false"
     :on-change="checkType"
@@ -15,15 +16,18 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import {Component} from 'vue-property-decorator'
+import {Component,Prop} from 'vue-property-decorator'
 import axios from 'axios'
 @Component({})
 export default class YaUpload extends Vue{
-    
-
-    private imageUrl=""
-    private headImgFile
    
+    @Prop({})
+    item
+
+     imageUrl=""
+     headImgFile
+
+    //  fileList= [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
 
      handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
@@ -80,6 +84,23 @@ export default class YaUpload extends Vue{
           
         })
       }
+
+      get fileList(){
+       let temp = []
+        try {
+             if(this.item.thumb_path){
+          temp =  this.item.thumb_path.map(item=>{
+            return {
+              url:item 
+            }
+          })
+       }
+        } catch (error) {
+          
+        }
+        return temp 
+      }
+
 }
 </script>
 <style>
