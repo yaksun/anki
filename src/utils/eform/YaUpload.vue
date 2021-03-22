@@ -4,6 +4,7 @@
       drag
       list-type="picture-card"
       :file-list="fileList"
+      :before-remove="beforeRemove"
     action="none"
     :auto-upload="false"
     :on-change="checkType"
@@ -46,6 +47,9 @@ export default class YaUpload extends Vue{
         return isJPG && isLt2M;
       }
 
+      beforeRemove(file, fileList) {
+      //  this.$emit('handleImgUrl',file.url.substring())
+      }
 
       checkType(file,fileList){
         let fileType = file.name.substring(file.name.lastIndexOf('.')+1);

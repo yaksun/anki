@@ -116,7 +116,8 @@ export default class AutoTable extends Vue{
          data={}
          params={current:1,pageSize:20}
          operStatus='add'
-         currentId=''
+         currentId
+         cateId
          imgArr:any=[] 
 
     mounted(){
@@ -181,10 +182,12 @@ export default class AutoTable extends Vue{
 
     // 修改界面
     handleUpdateClick(row){
+     
       let temp = Object.assign({},row)
       temp.title="修改数据" 
       this.val = temp 
       this.currentId = row.id
+      this.cateId = row.cateId
       this.operStatus='upd'
        this.options.columns =  this.options.columns.map(item=>{
         return {
@@ -197,14 +200,18 @@ export default class AutoTable extends Vue{
 
     // 删除操作
     handleDeleteClick(val){
+  
+      let _this = this 
          this.$confirm('此操作将永久删除该条数据, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
           let params = Object.assign({},{id:val.id})
+          let params2 = Object.assign({},{id:val.cateId})
           const res = await this.bll.delCard(params)
           if(res.code===200){
+             await this.cate.delCate(params2)
             this.$message({
               type: 'success',
               message: '删除成功!'
@@ -253,10 +260,20 @@ export default class AutoTable extends Vue{
 
     //提交操作
    async handleSubmit(val){
-      const url = await this.cate.addCate({
+     let _this =  this 
+        let urlRes 
+       if(this.operStatus==='upd'){
+           urlRes = await this.cate.updCate({
+            id:_this.cateId,
            img_path:this.imgArr.join(','),
            thumb_path:this.imgArr.join(',')
          })
+       }else{
+          urlRes = await this.cate.addCate({
+           img_path:this.imgArr.join(','),
+           thumb_path:this.imgArr.join(',')
+         })
+       }
 
      let temp=['proxy_price','real_price','sl_price','tl_price','commission','profit','verify','floating_loss','floating_profit']
       for(let key in val){
@@ -268,31 +285,21 @@ export default class AutoTable extends Vue{
       val['trade_date'] = moment(new Date(val['trade_date'])).format('YYYY-MM-DD HH:mm:ss')
 
       let res ;
-      let imgRes
       
-      if(url.data && url.data.msg==='success'){
-         if(this.operStatus==='upd'){
-          val['id'] = this.currentId
-          res = await this.bll.updCard(val)
-      }else{
-        val['cateId'] = url.data.id
-        res = await this.bll.addCard(val)
-        
-        
-      }
+      
+      if(urlRes.data && urlRes.data.msg==='success'){
+          if(this.operStatus==='upd'){
+              val['id'] = this.currentId
+              res = await this.bll.updCard(val)
+          }else{
+            val['cateId'] = urlRes.data.id
+            res = await this.bll.addCard(val)
+            
+          }
 
        if(res.data && res.data.msg==='success'){
-          let params={ 
-           cardId:res.data.id,
-           img_path:this.imgArr.join(','),
-           thumb_path:this.imgArr.join(',')
-
-         }
-         const imgRes = await this.cate.addCate(params)
-         if(imgRes.data && imgRes.data.msg==='success'){
             this.closeDialog() 
             this.getList() 
-         }
         }
       }
     }

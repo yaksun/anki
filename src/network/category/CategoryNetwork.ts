@@ -40,7 +40,7 @@ export class CategoryNetwork{
     public async delCate(params): Promise<any>{
         const resultData: any = await  httpAsync(
             CategoryAPIS.del_cate.baseUrl,
-            CategoryAPIS.del_cate.url+'/'+params,
+            CategoryAPIS.del_cate.url+'/'+params.id,
             CategoryAPIS.del_cate.method,
             params
         );
