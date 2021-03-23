@@ -1,6 +1,6 @@
 <template>
       <el-upload
-    :file-list="fileList"
+    :file-list="itemList"
     class="avatar-uploader"
       drag
       list-type="picture-card"
@@ -22,7 +22,7 @@ import axios from 'axios'
 export default class YaUpload extends Vue{
    
     @Prop({})
-    item
+    itemList
 
      imageUrl=""
      headImgFile
@@ -88,22 +88,22 @@ export default class YaUpload extends Vue{
         })
       }
 
-      get fileList(){
+      // get fileList(){
      
-       let temp = []
-        try {
-             if(this.item.thumb_path){
-            temp =  this.item.thumb_path.map(item=>{
-                  return {
-                  url:item 
-                  }
-            })
-       }
-        } catch (error) {
+      //  let temp = []
+      //   try {
+      //        if(this.item.thumb_path){
+      //       temp =  this.item.thumb_path.map(item=>{
+      //             return {
+      //             url:item 
+      //             }
+      //       })
+      //  }
+      //   } catch (error) {
           
-        }
-        return temp 
-      }
+      //   }
+      //   return temp 
+      // }
 
 }
 </script>

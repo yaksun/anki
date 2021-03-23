@@ -44,7 +44,7 @@
       <YaUpload
       @handleRemoveImgUrl="handleRemoveImgUrl"
        @handleImgUrl="handleImgUrl" 
-       :item="val.cate"/>
+       :itemList="itemList"/>
     </ya-dialog>
    </div>
 </template>
@@ -122,6 +122,7 @@ export default class AutoTable extends Vue{
          currentId
          cateId
          imgArr:any=[] 
+         itemList=[] 
 
     mounted(){
         this.getList()
@@ -190,6 +191,11 @@ export default class AutoTable extends Vue{
       this.currentId = row.id
       this.cateId = row.cateId
       this.imgArr = (this.val as any).cate.thumb_path
+      this.itemList = temp.cate.thumb_path.map(item=>{
+                  return {
+                  url:item 
+                  }
+      })   
       this.operStatus='upd'
        this.options.columns =  this.options.columns.map(item=>{
         return {
