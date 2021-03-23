@@ -155,7 +155,7 @@ export default class HomeTable extends Vue{
       }
 }
 .yaTable-template-class{
-    height: calc(100vh - 82px);
+    height: calc(100vh - 84px);
     .el-table{
         height: calc(100% - 40px);
         margin-bottom:4px;

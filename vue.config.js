@@ -15,7 +15,7 @@ module.exports = {
     proxy: {
       "/api": {
        
-         target: "http://localhost:3000", // 
+         target: "http://192.168.1.211:7000", // 
        
         //远程演示服务地址,可用于直接启动项目
         ws: true,
