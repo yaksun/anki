@@ -3,6 +3,7 @@
     :file-list="itemList"
     class="avatar-uploader"
       drag
+       :limit="12"
       list-type="picture-card"
       :before-remove="beforeRemove"
     action="none"
@@ -26,6 +27,7 @@ export default class YaUpload extends Vue{
 
      imageUrl=""
      headImgFile
+    
 
     //  fileList= [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
 
@@ -88,6 +90,16 @@ export default class YaUpload extends Vue{
         })
       }
 
+    //   // 控制上传图标隐藏
+    //  get showStatus(){
+    //    if(this.itemList.length+this.count===6 ){
+    //       return true 
+    //    }
+
+    //    return false 
+    //  }
+
+
       // get fileList(){
      
       //  let temp = []
@@ -107,10 +119,33 @@ export default class YaUpload extends Vue{
 
 }
 </script>
-<style>
+<style lang="scss">
+@mixin scroll-style{
+    &::-webkit-scrollbar {
+          width: 4px;
+    }
+      &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.2);
+      }  
+      &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 0;
+      background: rgba(0,0,0,0.1);
+      }
+}
  .avatar-uploader{
-   width: 50%;
+   width: 65%;
    float: right;
+   overflow-y: auto;
+    height: 220px;
+     @include scroll-style;
+  &.on{
+     .el-upload{
+       display: none;
+   }
+  }
  }
   
 </style>

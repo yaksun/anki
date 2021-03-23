@@ -14,7 +14,7 @@
                  <el-image 
                 v-for="(item,index) in props.row.cate.thumb_path"
                 :key="index"
-                style=" height: 200px"
+                style=" height: 200px;width:200px"
                 :src="props.row.cate.thumb_path[index]" 
                 :preview-src-list="props.row.cate.img_path">
             </el-image>

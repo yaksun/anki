@@ -338,6 +338,10 @@ export default class AutoTable extends Vue{
 </script>
 <style lang="scss">
 .autoTable-template-class{
+  .el-upload-dragger{
+    width: 100%;
+    height: 100%;
+  }
    .add-btn {
     position: absolute;
     z-index: 10;
