@@ -1,16 +1,15 @@
 <template>
-    <el-upload
+      <el-upload
+    :file-list="fileList"
     class="avatar-uploader"
       drag
       list-type="picture-card"
-      :file-list="fileList"
       :before-remove="beforeRemove"
     action="none"
     :auto-upload="false"
     :on-change="checkType"
     accept="image/jpeg,image/png,image/jpg"
    >
- 
     <i class="el-icon-upload"></i>
   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </el-upload>
@@ -90,14 +89,15 @@ export default class YaUpload extends Vue{
       }
 
       get fileList(){
+     
        let temp = []
         try {
              if(this.item.thumb_path){
-          temp =  this.item.thumb_path.map(item=>{
-            return {
-              url:item 
-            }
-          })
+            temp =  this.item.thumb_path.map(item=>{
+                  return {
+                  url:item 
+                  }
+            })
        }
         } catch (error) {
           

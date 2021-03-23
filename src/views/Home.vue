@@ -133,7 +133,7 @@ export default class AutoTable extends Vue{
      res.data.data =  res.data.data.map(item=>{
         return {
           ...item,
-          cate:item.cate ? {img_path:item.cate.img_path.split(','),thumb_path:item.cate.thumb_path.split(',')} : {img_path:[],thumb_path:[]}
+          cate:item.cate.img_path ? {img_path:item.cate.img_path.split(','),thumb_path:item.cate.thumb_path.split(',')} : {img_path:[],thumb_path:[]}
         }
      })
     let arr:any=[] 
@@ -167,7 +167,6 @@ export default class AutoTable extends Vue{
 
        // 查看详情
     handleDetailClick(row){
-       
       // 指定操作类型
       let temp = Object.assign({},row)
       temp.title="查看详情" 
@@ -185,7 +184,6 @@ export default class AutoTable extends Vue{
 
     // 修改界面
     handleUpdateClick(row){
-     
       let temp = Object.assign({},row)
       temp.title="修改数据" 
       this.val = temp 
@@ -261,6 +259,7 @@ export default class AutoTable extends Vue{
       this.isShowDialog = false
       this.val={}
       this.operStatus='add'
+      this.imgArr=[]
     }
 
     //提交操作
