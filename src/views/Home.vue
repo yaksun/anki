@@ -107,7 +107,7 @@ export default class AutoTable extends Vue{
                 {label:'校验',field:'verify',desc:'请输入校验',type:'input',show:'number'},
                 {label:'最大浮亏',field:'floating_loss',desc:'请输入最大浮亏',type:'input',show:'number'},
                 {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input',show:'number'},
-                {label:'备注',field:'remark',desc:'请输入备注',type:'textarea',autosize:true}
+                {label:'笔记',field:'remark',desc:'请输入备注',type:'textarea',autosize:true}
             ],
             initStatus:true
            
@@ -160,7 +160,8 @@ export default class AutoTable extends Vue{
 
     handleAdd(){
       let temp={title:'添加数据'}
-      this.val = temp 
+      this.val = Object.assign({},temp) 
+      this.itemList=[]
       this.isShowDialog = true 
 
     }
