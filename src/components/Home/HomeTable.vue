@@ -29,7 +29,8 @@
         :label="item.label"
         :width="item.width">
             <template slot-scope="props">
-                <el-input v-model="props.row[item.field]"></el-input>
+                <span v-if="item.field==='trade_date'">{{props.row[item.field]}}</span>
+            <el-input v-else v-model="props.row[item.field]"></el-input>
             </template>
         </el-table-column>
       <slot></slot>
