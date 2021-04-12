@@ -5,7 +5,7 @@
         :expand-row-keys="expandRowKeys"
         :data="tableData.data"
         :row-class-name="rowClassName" 
-        @row-click="handleClick"
+         @expand-change="handleClick"
         border
         >
          <el-table-column type="expand" >
