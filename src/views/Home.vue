@@ -3,8 +3,13 @@
      <ya-form :options="options2" :params="val" class="search-warpper">
        <el-button  type="primary" @click="handleSearch" >搜索</el-button>
       <el-button  @click="handleAdd">添加</el-button>
+     <el-button @click="handleChangeType('note')" :class="{active:type==='note'}">笔记</el-button>
+      <el-button @click="handleChangeType('stream')" :class="{active:type==='stream'}">流水</el-button>
+
      </ya-form>
-      <HomeTable
+ 
+    <div v-if="type==='stream'">
+            <HomeTable
     :tableData="data"
     :options="options"
     @changeCurrent="changeCurrent"
@@ -46,6 +51,10 @@
        @handleImgUrl="handleImgUrl" 
        :itemList="itemList"/>
     </ya-dialog>
+    </div>
+    <div v-else>
+    <Note />
+    </div>
    </div>
 </template>
 <script lang="ts">
@@ -55,6 +64,7 @@ import {Component,Watch} from 'vue-property-decorator'
 import HomeTable from '@/components/Home/HomeTable.vue'
 import YaDialog from '@/utils/edialog/YaDialog.vue'
 import YaForm from '@/utils/eform/YaForm.vue'
+import Note from '@/components/Home/Note.vue'
 import {HomeServices} from '@/bll/home/HomeServices'
 import {CategoryServices} from '@/bll/category/CategoryServices'
 import YaUpload from '@/utils/eform/YaUpload.vue'
@@ -64,10 +74,13 @@ import moment  from 'moment'
         HomeTable,
         YaDialog,
         YaForm,
-        YaUpload
+        YaUpload,
+        Note
     }
 })
 export default class AutoTable extends Vue{
+
+      type='stream'
       bll = new HomeServices()
       cate = new CategoryServices();
 
@@ -127,6 +140,12 @@ export default class AutoTable extends Vue{
     mounted(){
         this.getList()
     }
+
+
+  // 切换显示页面
+  handleChangeType(val){
+    this.type = val 
+  }
 
    async getList(){
   
@@ -356,6 +375,7 @@ export default class AutoTable extends Vue{
      margin-top: 2vh  !important;
        .el-form-item{
          width: 30% ;
+         
          .el-form-item__content{
            width: calc( 100% - 80px);
          }
@@ -368,11 +388,20 @@ export default class AutoTable extends Vue{
    }
    
    .yaForm-template-class{
+     padding: 0 15px;
      .el-form-item{
      margin-top: 20px;
     }
     .el-button{
       margin-top: 20px;
+           &.active{
+             color: #FFF;
+            background-color: #409EFF;
+            border-color: #409EFF;
+           }
+           &:nth-last-child(1),&:nth-last-child(2){
+             float: right;
+           }
     }
    }
    .search-warpper{
