@@ -294,8 +294,8 @@ export default class AutoTable extends Vue{
        if(val.id){
            urlRes = await this.cate.updCate({
             id:val.cateId,
-           img_path:this.imgArr.join(','),
-           thumb_path:this.imgArr.join(',')
+            img_path:val['cate'] && val['cate'].img_path ? val['cate'].img_path.join(',') : '',
+           thumb_path:val['cate'] && val['cate'].thumb_path ? val['cate'].thumb_path.join(',') : ''
          })
        }else{
           urlRes = await this.cate.addCate({

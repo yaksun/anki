@@ -11,7 +11,7 @@
          <el-table-column type="expand" >
         <template slot-scope="props">
             <div class="img-warpper">
-           <UpText :cate="props.row.cate" :remark="props.row.remark"/>
+                 <UpText :row="props.row"  @change="handleChangeAuto2"/>
             </div>
         </template>
      </el-table-column>
@@ -87,6 +87,12 @@ export default class HomeTable extends Vue{
            this.$emit('handleSubmit',this.currentItem)  
            this.flag = false
         }
+    }
+
+    // 接收扩展数据
+    handleChangeAuto2(val){
+          this.$emit('handleSubmit',val)  
+        
     }
 
     handleChangeAuto(row,field){
