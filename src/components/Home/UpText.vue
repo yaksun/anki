@@ -33,6 +33,7 @@ export default class UpText extends Vue{
     val=''
     srcList=[]
     imgFileUrls=[]
+    flag:Boolean=false 
 
     mounted(){
         let _this = this 
@@ -45,6 +46,7 @@ export default class UpText extends Vue{
                 uploadUrl: '/api/upload',
                 onFileUploaded: (editor, filename) => {
                     let val = editor.getValue();
+                    _this.flag = true 
                      _this.getInfo(val)
                  
                 },
@@ -122,12 +124,15 @@ export default class UpText extends Vue{
 
                  }
 
-                 this.parmas['remark'] = tempTxt 
+                this.parmas['remark'] = tempTxt 
                 this.imgFileUrls = imgFileUrls
     }
 
     handleBlur(){
-        const { parmas,row} = this 
+        const { parmas,row,flag} = this 
+        if(!flag){
+            this.getInfo(parmas['remark'])
+        }
         parmas['cate'] = {} 
         parmas['cate'].img_path = this.imgFileUrls
         this.$emit('change',parmas)

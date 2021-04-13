@@ -205,27 +205,27 @@ export default class AutoTable extends Vue{
     }
 
     // 修改界面
-    handleUpdateClick(row){
-      let temp = Object.assign({},row)
-      temp.title="修改数据" 
-      this.val = temp 
-      this.currentId = row.id
-      this.cateId = row.cateId
-      this.imgArr = (this.val as any).cate.thumb_path
-      this.itemList = temp.cate.thumb_path.map(item=>{
-                  return {
-                  url:item 
-                  }
-      })   
-      this.operStatus='upd'
-       this.options.columns =  this.options.columns.map(item=>{
-        return {
-          ...item,
-         disabled:false
-        }
-      })
-      this.isShowDialog = true 
-    }
+    // handleUpdateClick(row){
+    //   let temp = Object.assign({},row)
+    //   temp.title="修改数据" 
+    //   this.val = temp 
+    //   this.currentId = row.id
+    //   this.cateId = row.cateId
+    //   this.imgArr = (this.val as any).cate.thumb_path
+    //   this.itemList = temp.cate.thumb_path.map(item=>{
+    //               return {
+    //               url:item 
+    //               }
+    //   })   
+    //   this.operStatus='upd'
+    //    this.options.columns =  this.options.columns.map(item=>{
+    //     return {
+    //       ...item,
+    //      disabled:false
+    //     }
+    //   })
+    //   this.isShowDialog = true 
+    // }
 
     // 删除操作
     handleDeleteClick(val){

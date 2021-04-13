@@ -1,11 +1,13 @@
 module.exports = {
   root: true,
+  parser: "vue-eslint-parser",
   parserOptions: {
+    parser: "babel-eslint",
     sourceType: 'module',
     ecmaFeatures: {
       "legacyDecorators": true
-    },
-    parser: "babel-eslint"
+    }
+  
   },
   extends: [
 
