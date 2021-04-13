@@ -1,9 +1,10 @@
 <template>
-      <el-upload
+   <div>
+    <el-upload
     :file-list="itemList"
     class="avatar-uploader"
       drag
-       :limit="12"
+      :limit="12"
       list-type="picture-card"
       :before-remove="beforeRemove"
     action="none"
@@ -12,13 +13,15 @@
     accept="image/jpeg,image/png,image/jpg"
    >
     <i class="el-icon-upload"></i>
-  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="el-upload__text">将文件拖到此处，或</div>
     </el-upload>
+   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import {Component,Prop} from 'vue-property-decorator'
 import axios from 'axios'
+
 @Component({})
 export default class YaUpload extends Vue{
    
@@ -29,6 +32,7 @@ export default class YaUpload extends Vue{
      headImgFile
     
 
+   
     //  fileList= [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
 
      handleAvatarSuccess(res, file) {

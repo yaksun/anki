@@ -11,13 +11,7 @@
          <el-table-column type="expand" >
         <template slot-scope="props">
             <div class="img-warpper">
-                 <el-image 
-                v-for="(item,index) in props.row.cate.thumb_path"
-                :key="index"
-                style=" height: 200px;width:200px"
-                :src="props.row.cate.thumb_path[index]" 
-                :preview-src-list="props.row.cate.img_path">
-            </el-image>
+           <UpText :cate="props.row.cate" :remark="props.row.remark"/>
             </div>
         </template>
      </el-table-column>
@@ -29,8 +23,10 @@
         :label="item.label"
         :width="item.width">
             <template slot-scope="props">
-                <span v-if="item.field==='trade_date'">{{props.row[item.field]}}</span>
-            <el-input v-else v-model="props.row[item.field]"></el-input>
+                <span v-if="item.field==='trade_date'">
+                    <el-date-picker  type="datetime" v-model="props.row[item.field]" @change="handleChangeAuto(props.row,item.field)" @blur="handleSubmitItem"></el-date-picker>
+                </span>
+            <el-input v-else v-model="props.row[item.field]" @change="handleChangeAuto(props.row,item.field)" @blur="handleSubmitItem"></el-input>
             </template>
         </el-table-column>
       <slot></slot>
@@ -52,11 +48,15 @@ import {CategoryServices} from '@/bll/category/CategoryServices'
 import YaInput from '@/utils/eform/YaInput.vue'
 import YaDate from '@/utils/eform/YaDate.vue'
 import YaSelect from '@/utils/eform/YaSelect.vue'
+import YaUpload from '@/utils/eform/YaUpload.vue'
+import UpText from '@/components/Home/UpText.vue'
 @Component({
     components:{
         YaInput ,
         YaDate,
-        YaSelect
+        YaSelect,
+        YaUpload,
+        UpText
     }
 })
 export default class HomeTable extends Vue{
@@ -66,6 +66,11 @@ export default class HomeTable extends Vue{
    @Prop({})
    private options
 
+    // 判断是否有改动
+    flag=false 
+    currentItem={} 
+   imgArr:any=[] 
+
    bll = new CategoryServices()
 
     currentPage= 4
@@ -74,6 +79,20 @@ export default class HomeTable extends Vue{
     info={
         thumb_path:[],
         img_path:[]
+    }
+
+    // 失去焦点就提交
+    handleSubmitItem(){
+        if(this.flag){
+           this.$emit('handleSubmit',this.currentItem)  
+           this.flag = false
+        }
+    }
+
+    handleChangeAuto(row,field){
+        this.flag=true 
+        console.log(row,field);
+        this.currentItem = Object.assign({},row)
     }
 
     rowClassName({row, rowIndex}) {       
@@ -116,6 +135,20 @@ export default class HomeTable extends Vue{
       row_key(row){
           return row.id
       }
+
+
+        // 获取图片连接
+    handleImgUrl(val){
+        if(val){
+          this.imgArr.push('/api/'+val)
+        }
+    }
+
+    // 删除图片连接
+    handleRemoveImgUrl(value){
+      this.imgArr = this.imgArr.filter(item=>item!=value)
+     
+    }
 
       get newColumns(){
           let temp = this.options.columns.filter(item=>!item.hidden)
@@ -170,7 +203,13 @@ export default class HomeTable extends Vue{
             align-items: center;
             width: 100%;
             overflow: auto;
+            padding: 0 20px;
+            box-sizing: border-box;
              @include scroll-style2;
+             .avatar-uploader{
+                 display: flex;
+                width: auto;
+             }
             .el-image{
                 width: 23%;
                 flex-shrink: 0;

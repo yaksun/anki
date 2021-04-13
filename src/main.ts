@@ -26,6 +26,7 @@ import {
 } from 'element-ui';
 // import './mock'
 
+
 Vue.config.productionTip = false
 Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
@@ -52,6 +53,7 @@ Vue.component(Image.name, Image);
 
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;
+
 
 new Vue({
   router,

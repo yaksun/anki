@@ -13,6 +13,7 @@
     :tableData="data"
     :options="options"
     @changeCurrent="changeCurrent"
+      @handleSubmit="handleSubmit2"
     >
       <el-table-column v-if="options.operStatus" align="center"
                          width="180"
@@ -24,12 +25,12 @@
                        type="primary"
                        icon="el-icon-document"
                        @click="handleDetailClick(scope.row)"></el-button> -->
-            <el-button plain
+            <!-- <el-button plain
                        circle
                        size="mini"
                        type="primary"
                        icon="el-icon-edit"
-                       @click.stop="handleUpdateClick(scope.row)"></el-button>
+                       @click.stop="handleUpdateClick(scope.row)"></el-button> -->
             <el-button plain
                        circle
                        size="mini"
@@ -40,16 +41,17 @@
       </el-table-column>
     </HomeTable>
     <ya-dialog 
+    id="ya-dialog"
      v-if="isShowDialog"
     :isShowDialog="isShowDialog"
     @handleSubmit="handleSubmit"
     :options="options"
     :val="val" 
     @close="closeDialog">
-      <YaUpload
+      <!-- <YaUpload
       @handleRemoveImgUrl="handleRemoveImgUrl"
        @handleImgUrl="handleImgUrl" 
-       :itemList="itemList"/>
+       :itemList="itemList"/> -->
     </ya-dialog>
     </div>
     <div v-else>
@@ -116,11 +118,10 @@ export default class AutoTable extends Vue{
                 {label:'止盈价格',field:'tl_price',desc:'请输入止盈价格',type:'input',show:'number'},
                 {label:'佣金',field:'sl_price',desc:'请输入佣金',type:'input',show:'number'},
                 {label:'利润',field:'profit',desc:'请输入利润',type:'input',show:'number'},
-                {label:'买卖理由',field:'reason',desc:'请输入买卖理由',type:'textarea',autosize:true},
+                {label:'买卖理由',field:'reason',desc:'请输入买卖理由',type:'input',autosize:true},
                 {label:'校验',field:'verify',desc:'请输入校验',type:'input',show:'number'},
                 {label:'最大浮亏',field:'floating_loss',desc:'请输入最大浮亏',type:'input',show:'number'},
-                {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input',show:'number'},
-                {label:'笔记',field:'remark',desc:'请输入备注',type:'textarea',autosize:true}
+                {label:'最大浮盈',field:'floating_profit',desc:'请输入最大浮盈',type:'input',show:'number'}
             ],
             initStatus:true
            
@@ -288,6 +289,51 @@ export default class AutoTable extends Vue{
       this.imgArr=[]
     }
 
+     async handleSubmit2(val){
+        let urlRes 
+       if(val.id){
+           urlRes = await this.cate.updCate({
+            id:val.cateId,
+           img_path:this.imgArr.join(','),
+           thumb_path:this.imgArr.join(',')
+         })
+       }else{
+          urlRes = await this.cate.addCate({
+           img_path:this.imgArr.join(','),
+           thumb_path:this.imgArr.join(',')
+         })
+       }
+
+     let temp=['proxy_price','real_price','sl_price','tl_price','commission','profit','verify','floating_loss','floating_profit']
+      for(let key in val){
+        if(temp.indexOf(key)!= -1){
+          val[key] = this.changeNumber(val[key])
+        }
+      }
+      
+      val['trade_date'] = moment(new Date(val['trade_date'])).format('YYYY-MM-DD HH:mm:ss')
+
+      let res ;
+      
+      
+      if(urlRes.data && urlRes.data.msg==='success'){
+        delete val.index
+          if(val.id){
+              delete val.cate
+              res = await this.bll.updCard(val)
+          }else{
+            val['cateId'] = urlRes.data.id
+            res = await this.bll.addCard(val)
+            
+          }
+
+       if(res.data && res.data.msg==='success'){
+            this.closeDialog() 
+            this.getList() 
+        }
+      }
+    }
+
     //提交操作
    async handleSubmit(val){
      let _this =  this 
@@ -357,6 +403,7 @@ export default class AutoTable extends Vue{
 }
 </script>
 <style lang="scss">
+
 .autoTable-template-class{
   .el-upload-dragger{
     width: 100%;
