@@ -5,7 +5,6 @@
       <el-button  @click="handleAdd">添加</el-button>
      <el-button @click="handleChangeType('note')" :class="{active:type==='note'}">笔记</el-button>
       <el-button @click="handleChangeType('stream')" :class="{active:type==='stream'}">流水</el-button>
-
      </ya-form>
  
     <div v-if="type==='stream'">
@@ -44,14 +43,11 @@
     id="ya-dialog"
      v-if="isShowDialog"
     :isShowDialog="isShowDialog"
-    @handleSubmit="handleSubmit"
+    @handleSubmit="handleSubmit2"
     :options="options"
     :val="val" 
     @close="closeDialog">
-      <!-- <YaUpload
-      @handleRemoveImgUrl="handleRemoveImgUrl"
-       @handleImgUrl="handleImgUrl" 
-       :itemList="itemList"/> -->
+     <UpText :row="rowItem" :status="true" @change="handleAddRow"/>
     </ya-dialog>
     </div>
     <div v-else>
@@ -70,6 +66,8 @@ import Note from '@/components/Home/Note.vue'
 import {HomeServices} from '@/bll/home/HomeServices'
 import {CategoryServices} from '@/bll/category/CategoryServices'
 import YaUpload from '@/utils/eform/YaUpload.vue'
+import UpText from '@/components/Home/UpText.vue'
+import card_ui_modal from '@/model/card/card_ui_modal'
 import moment  from 'moment'
 @Component({
     components:{
@@ -77,14 +75,16 @@ import moment  from 'moment'
         YaDialog,
         YaForm,
         YaUpload,
-        Note
+        Note,
+        UpText
     }
 })
 export default class AutoTable extends Vue{
-
+      rowItem = new card_ui_modal()
       type='stream'
       bll = new HomeServices()
       cate = new CategoryServices();
+      tempObj={}
 
        options2={
          inlineStatus:true,
@@ -142,6 +142,11 @@ export default class AutoTable extends Vue{
         this.getList()
     }
 
+  // 添加数据
+  handleAddRow(val){
+    this.tempObj = Object.assign({},val)
+    // this.handleSubmit2(val)
+  }
 
   // 切换显示页面
   handleChangeType(val){
@@ -299,8 +304,8 @@ export default class AutoTable extends Vue{
          })
        }else{
           urlRes = await this.cate.addCate({
-           img_path:this.imgArr.join(','),
-           thumb_path:this.imgArr.join(',')
+           img_path:this.tempObj['cate'] && this.tempObj['cate']['img_path'].join(',') ? this.tempObj['cate']['img_path'] : '',
+           thumb_path:this.tempObj['cate'] && this.tempObj['cate']['thumb_path'].join(',') ? this.tempObj['cate']['thumb_path'] : ''
          })
        }
 
@@ -323,6 +328,7 @@ export default class AutoTable extends Vue{
               res = await this.bll.updCard(val)
           }else{
             val['cateId'] = urlRes.data.id
+            val['remark'] = this.tempObj['remark'] ? this.tempObj['remark'] : ''
             res = await this.bll.addCard(val)
             
           }
