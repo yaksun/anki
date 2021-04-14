@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import {Component,Prop} from 'vue-property-decorator'
+import {Component,Prop,Watch} from 'vue-property-decorator'
 
 import _ from 'lodash'
 
@@ -37,8 +37,14 @@ export default class UpText extends Vue{
 
     val=''
     srcList=[]
-    imgFileUrls=[]
+    imgFileUrls:any=[]
     flag:Boolean=false 
+
+    @Watch('row')
+    handleChange(val){
+        this.parmas = Object.assign({},val)
+        this.srcList = this.parmas['cate'].img_path 
+    }
 
     mounted(){
         let _this = this 
@@ -52,7 +58,7 @@ export default class UpText extends Vue{
                 onFileUploaded: (editor, filename) => {
                     let val = editor.getValue() ?  editor.getValue() : '' ;
                     _this.flag = true 
-                     _this.getInfo(val)
+                    _this.getInfo(val)
                  
                 },
                 onFileReceived: (editor, file) => {
@@ -64,6 +70,7 @@ export default class UpText extends Vue{
 
     // 将文本和链接分开
     getInfo(txt){
+      this.imgFileUrls=[]
         let tempTxt = txt 
                  // 1.找出图片链接存储起来
                     // const images = txt.match(/!\[file\]\(http(s)?:\/\/(.*?)\)((\r\n)|(\n))?/ig);
@@ -98,7 +105,7 @@ export default class UpText extends Vue{
 
 
                      // 5.给图片链接加上img标签
-                    let imgFileUrls:any = [];
+               
                     if (images) {
                       _.forEach(images, (v, i) => {
                         const imgurls = v.match(/http(s)?:\/\/([^\)]+)/ig);
@@ -110,7 +117,7 @@ export default class UpText extends Vue{
 
                           txt = txt.replace(v,'')
 
-                          let newArr:any=[] 
+                          let newArr:any[]=[] 
                           imgurls.forEach(item=>{
                             if(item && item.indexOf('/api/')!=-1){
                               let temp = item.split('api')
@@ -119,7 +126,7 @@ export default class UpText extends Vue{
                           })  
 
 
-                          imgFileUrls.push(newArr[0]);
+                          this.imgFileUrls.push(newArr[0]);
                         // imgFileUrls = newArr
                           // 把图片链接以映射的方式替换
 
@@ -130,7 +137,7 @@ export default class UpText extends Vue{
                  }
 
                 this.parmas['remark'] = tempTxt 
-                this.imgFileUrls = imgFileUrls
+                this.flag = false 
     }
 
     handleBlur(){

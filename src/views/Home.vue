@@ -12,7 +12,7 @@
     :tableData="data"
     :options="options"
     @changeCurrent="changeCurrent"
-      @handleSubmit="handleSubmit2"
+    @handleSubmit="handleSubmit2"
     >
       <el-table-column v-if="options.operStatus" align="center"
                          width="180"
@@ -69,6 +69,7 @@ import YaUpload from '@/utils/eform/YaUpload.vue'
 import UpText from '@/components/Home/UpText.vue'
 import card_ui_modal from '@/model/card/card_ui_modal'
 import moment  from 'moment'
+import _ from 'lodash'
 @Component({
     components:{
         HomeTable,
@@ -173,8 +174,11 @@ export default class AutoTable extends Vue{
          item[mini] = parseInt(item[mini]*100+'')/100
        })
     })
-
-      this.data = res.data 
+      //  let temp = _.cloneDeep(res.data.data)
+    
+      this.$set(this.data,'data',res.data.data)
+      this.$forceUpdate()
+      // this.data = res.data 
       
     }
 
