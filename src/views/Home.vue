@@ -1,5 +1,14 @@
 <template>
    <div class="autoTable-template-class">
+     <div class="stream-warpper">
+       <span>现金:20000</span>
+       <span>理财:20000</span>
+       <span>基金:20000</span>
+       <span>股票:20000</span>
+       <span>黄金:20000</span>
+       <span>其他:20000</span>
+       <span>最后更新时间:2021-04-15 15:23:56</span>
+     </div>
      <ya-form :options="options2" :params="val" class="search-warpper">
       <div class="oper-btn">
          <el-button  type="primary" @click="handleSearch" size='mini' >搜索</el-button>
@@ -440,6 +449,15 @@ input{
 }
 
 .autoTable-template-class{
+  .stream-warpper{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+  }
   .el-upload-dragger{
     width: 100%;
     height: 100%;
@@ -454,7 +472,8 @@ input{
      overflow: hidden;
      .el-dialog{
      width: 80%  !important;
-     height: 600px;
+     margin-top: 2vh  !important;
+     height: 800px;
        .el-form-item{
          width: 30% ;
          .el-form-item__content{
@@ -505,6 +524,17 @@ input{
    }
    
    
+}
+
+#ya-dialog{
+  .oper-btn{
+    bottom: 0;
+  }
+  .el-form-item__content{
+    .el-button{
+      margin-right: 20px;
+    }
+  }
 }
  
 </style>
