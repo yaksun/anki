@@ -8,17 +8,22 @@
        <span>黄金:20000</span>
        <span>其他:20000</span>
        <span>最后更新时间:2021-04-15 15:23:56</span>
+       <div>
+      <el-button @click="handleChangeType('stream')" :class="{active:type==='stream'}" size='mini' >流水</el-button>
+     <el-button @click="handleChangeType('note')" :class="{active:type==='note'}" size='mini' >笔记</el-button>
+      <el-button @click="handleChangeType('money')" :class="{active:type==='money'}" size='mini' >记账</el-button>
+
+       </div>
      </div>
-     <ya-form :options="options2" :params="val" class="search-warpper">
+    
+ 
+    <div v-if="type==='stream'">
+       <ya-form :options="options2" :params="val" class="search-warpper">
       <div class="oper-btn">
          <el-button  type="primary" @click="handleSearch" size='mini' >搜索</el-button>
       <el-button  @click="handleAdd" size='mini' >添加</el-button>
-     <el-button @click="handleChangeType('note')" :class="{active:type==='note'}" size='mini' >笔记</el-button>
-      <el-button @click="handleChangeType('stream')" :class="{active:type==='stream'}" size='mini' >流水</el-button>
       </div>
      </ya-form>
- 
-    <div v-if="type==='stream'">
             <HomeTable
     :tableData="data"
     :options="options"
@@ -67,6 +72,22 @@
      <UpText :row="rowItem" :status="true" @change="handleAddRow"/>
     </ya-dialog>
     </div>
+    <div v-else-if="type==='money'" class="money-warpper">
+      <MoneyListTable 
+      :tableData="initData"
+       :options="options3"
+       @showDialog="isShowMoneyDialog=true"
+      />
+    
+        <ya-dialog 
+      id="ya-dialog2"
+      v-if="isShowMoneyDialog"
+      :isShowDialog="isShowMoneyDialog"
+      :options="options3"
+        :val="moneyItem"
+      @close="closeMoneyDialog">
+    </ya-dialog>
+    </div>
     <div v-else>
     <Note />
     </div>
@@ -77,6 +98,7 @@ import Vue from 'vue'
 import {Component,Watch} from 'vue-property-decorator'
 
 import HomeTable from '@/components/Home/HomeTable.vue'
+import MoneyListTable from '@/components/Home/MoneyListTable.vue'
 import YaDialog from '@/utils/edialog/YaDialog.vue'
 import YaForm from '@/utils/eform/YaForm.vue'
 import Note from '@/components/Home/Note.vue'
@@ -94,15 +116,27 @@ import _ from 'lodash'
         YaForm,
         YaUpload,
         Note,
-        UpText
+        UpText,
+        MoneyListTable
     }
 })
 export default class AutoTable extends Vue{
       rowItem = new card_ui_modal()
-      type='stream'
+      type='money'
       bll = new HomeServices()
       cate = new CategoryServices();
       tempObj={}
+      moneyItem={
+        title:'添加数据'
+      }
+
+      initData={
+        data:[
+          {cash:122,money_manage:100,fund:300,stock:400,xauusd:120,others:520}
+        ],
+        pageSize:1,
+        total:10 
+      }
 
        options2={
          inlineStatus:true,
@@ -116,6 +150,25 @@ export default class AutoTable extends Vue{
                {label:'品种',field:'security_name',desc:'请输入品种名称',type:'input',clearable:true}
         ]
       }
+
+         options3={
+            inlineStatus:true,
+            labelWidth:'80px',
+            ruleForm:{},
+            operStatus:true,
+            columns:[
+              
+                {label:'现金',field:'cash',type:'input',show:'number'},
+                {label:'理财',field:'money_manage',type:'input',show:'number'},
+                {label:'基金',field:'fund',type:'input',show:'number'},
+                {label:'股票',field:'stock',type:'input',show:'number'},
+                {label:'黄金',field:'xauusd',type:'input',show:'number'},
+                {label:'其他',field:'others',type:'input',show:'number'}
+              
+            ],
+            initStatus:true
+           
+        }
         
       
       // 头部横向表单配置
@@ -162,9 +215,18 @@ export default class AutoTable extends Vue{
          imgArr:any=[] 
          itemList=[] 
 
+          isShowMoneyDialog:Boolean=false 
+
+
+  // 关闭记录弹框
+    closeMoneyDialog(){
+      this.isShowMoneyDialog = false 
+    }
+
     mounted(){
         this.getList()
     }
+
 
   // 添加数据
   handleAddRow(val){
@@ -449,6 +511,10 @@ input{
 }
 
 .autoTable-template-class{
+  height: 100%;
+  .money-warpper{
+    height: calc(100% - 50px);
+  }
   .stream-warpper{
     display: flex;
     justify-content: space-between;
@@ -457,6 +523,16 @@ input{
     padding: 10px 20px;
     box-sizing: border-box;
     border-bottom: 1px solid #ddd;
+     .el-button{
+           &.active{
+             color: #FFF;
+            background-color: #409EFF;
+            border-color: #409EFF;
+           }
+           &:nth-last-child(1),&:nth-last-child(2){
+             float: right;
+           }
+    }
   }
   .el-upload-dragger{
     width: 100%;
@@ -509,16 +585,7 @@ input{
       float: right;
       position: absolute;
       right: 10px;
-       .el-button{
-           &.active{
-             color: #FFF;
-            background-color: #409EFF;
-            border-color: #409EFF;
-           }
-           &:nth-last-child(1),&:nth-last-child(2){
-             float: right;
-           }
-    }
+      
     }
    
    }
@@ -534,6 +601,16 @@ input{
     .el-button{
       margin-right: 20px;
     }
+  }
+}
+
+#ya-dialog2{
+   .oper-btn{
+    bottom: 0;
+  }
+  .el-dialog {
+    height: 400px;
+    margin-top: 15vh  !important;
   }
 }
  

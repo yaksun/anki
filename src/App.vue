@@ -17,6 +17,9 @@ export default class App extends Vue {
   
 }
 </script>
-<style>
-
+<style lang='scss'>
+#app{
+  height: 100%;
+  width: 100%;
+}
 </style>
