@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+import ApolloClient from "apollo-boost";
+import VueApollo from "vue-apollo";
 import {
    Button, 
   Select ,
@@ -50,6 +53,15 @@ Vue.component(MessageBox.name, MessageBox);
 Vue.component(Image.name, Image);
 
 
+//graphql 配置
+Vue.use(VueApollo);
+const apolloClient = new ApolloClient({
+  // uri: "http://172.16.7.144:3003/graphql",
+  uri: "http://127.0.0.1:8000/graphql",
+});
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient,
+});
 
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;
@@ -58,5 +70,6 @@ Vue.prototype.$confirm = MessageBox.confirm;
 new Vue({
   router,
   store,
+  apolloProvider,
   render: h => h(App)
 }).$mount('#app')

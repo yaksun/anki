@@ -1,10 +1,12 @@
 <template>
    <div class="autoTable-template-class">
      <ya-form :options="options2" :params="val" class="search-warpper">
-       <el-button  type="primary" @click="handleSearch" >搜索</el-button>
-      <el-button  @click="handleAdd">添加</el-button>
-     <el-button @click="handleChangeType('note')" :class="{active:type==='note'}">笔记</el-button>
-      <el-button @click="handleChangeType('stream')" :class="{active:type==='stream'}">流水</el-button>
+      <div class="oper-btn">
+         <el-button  type="primary" @click="handleSearch" size='mini' >搜索</el-button>
+      <el-button  @click="handleAdd" size='mini' >添加</el-button>
+     <el-button @click="handleChangeType('note')" :class="{active:type==='note'}" size='mini' >笔记</el-button>
+      <el-button @click="handleChangeType('stream')" :class="{active:type==='stream'}" size='mini' >流水</el-button>
+      </div>
      </ya-form>
  
     <div v-if="type==='stream'">
@@ -413,6 +415,11 @@ export default class AutoTable extends Vue{
 }
 </script>
 <style lang="scss">
+input{
+  &.el-input__inner{
+    height: 30px;
+  }
+}
 
 .autoTable-template-class{
   .el-upload-dragger{
@@ -429,10 +436,9 @@ export default class AutoTable extends Vue{
      overflow: hidden;
      .el-dialog{
      width: 80%  !important;
-     margin-top: 2vh  !important;
+     height: 600px;
        .el-form-item{
          width: 30% ;
-         
          .el-form-item__content{
            width: calc( 100% - 80px);
          }
@@ -446,11 +452,27 @@ export default class AutoTable extends Vue{
    
    .yaForm-template-class{
      padding: 0 15px;
+   
+    &.search-warpper{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
      .el-form-item{
-     margin-top: 20px;
-    }
-    .el-button{
-      margin-top: 20px;
+         margin: 0;
+       &:nth-child(2){
+         .el-form-item__label{
+           width: 0px  !important;
+         }
+       }
+     }
+   }
+    .oper-btn{
+      float: right;
+      position: absolute;
+      right: 10px;
+       .el-button{
            &.active{
              color: #FFF;
             background-color: #409EFF;
@@ -460,16 +482,10 @@ export default class AutoTable extends Vue{
              float: right;
            }
     }
+    }
+   
    }
-   .search-warpper{
-     .el-form-item{
-       &:nth-child(2){
-         .el-form-item__label{
-           width: 0px  !important;
-         }
-       }
-     }
-   }
+   
    
 }
  

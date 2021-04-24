@@ -202,7 +202,6 @@ export default class HomeTable extends Vue{
         height: calc(100% - 40px);
         margin-bottom:4px;
         .img-warpper{
-            height: 300px;
             display: flex;
             flex-wrap:nowrap;
             justify-content: flex-start;
@@ -248,4 +247,5 @@ export default class HomeTable extends Vue{
     }
     
 }
+
 </style>

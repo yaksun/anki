@@ -1,14 +1,18 @@
 <template>
     <div class="upText-template-class">
-         <el-image 
-             v-if="srcList.length>0"
+        <el-input type='textarea' :autosize="{ minRows: 2, maxRows: 4}"  class="uploadInput"  v-model="parmas.remark" @blur="handleBlur"/>
+        <div class="img-list"   v-if="srcList.length>0">
+          <el-image 
              v-for="(item,index) in srcList"
              :key="index"
             style="width: 200px; height: 200px"
             :src="srcList[index]" 
             :preview-src-list="srcList">
         </el-image>
-        <el-input type='textarea' class="uploadInput" :rows="10" v-model="parmas.remark" @blur="handleBlur"/>
+        </div>
+        <div v-else class="no-data">
+          没有更多图片...
+        </div>
     </div>
 </template>
 <script lang="ts">
@@ -158,9 +162,16 @@ export default class UpText extends Vue{
 <style lang='scss'>
 .upText-template-class{
     display: flex;
+        flex-direction: column;
+    width: 100%;
+    height: 100%;
     .el-textarea{
-        width:600px;
-        min-height: 200px;
+        width: 100%;
+    }
+    .no-data{
+      margin-top: 10px;
+      height: 20px;
+      line-height: 20px;
     }
 }
 </style>

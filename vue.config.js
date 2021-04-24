@@ -24,9 +24,21 @@ module.exports = {
         pathRewrite:{
           '^/api':'/'
       }
-      }
+      },
+      "/ps": {
+       
+        target: "http://172.16.14.125:8000", // 
+      
+       //远程演示服务地址,可用于直接启动项目
+       ws: true,
+       changeOrigin:true,
+       pathRewrite:{
+         '^/ps':'/api'
+     }
+     }
     
-    },
+    }
+  
   },
   chainWebpack(config) {
     const svgRule = config.module.rule("svg"); // 找到svg-loader
