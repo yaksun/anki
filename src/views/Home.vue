@@ -32,6 +32,12 @@
                        type="primary"
                        icon="el-icon-edit"
                        @click.stop="handleUpdateClick(scope.row)"></el-button> -->
+                 <el-button plain
+                       circle
+                       size="mini"
+                       type="danger"
+                       icon="el-icon-circle-close"
+                       @click.stop="handleDel(scope.row)"></el-button>       
             <el-button plain
                        circle
                        size="mini"
@@ -112,9 +118,15 @@ export default class AutoTable extends Vue{
             columns:[
                 {label:'时间',field:'trade_date',prop:'trade_date',width:'240',desc:'输入日期',type:'date',clearable:true},
                 {label:'交易单号',field:'trade_no',width:'180',desc:'请输入单号',type:'input'},
-                {label:'类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
-                {label:'品种编号',field:'security_code',prop:'security_code',desc:'请输入品种编号',type:'input'},
-                {label:'品种',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'},
+                {label:'交易类型',field:'trade_type',prop:'trade_type',width:'180',desc:'请输入类型',type:'input'},
+                {label:'标的编号',field:'security_code',prop:'security_code',desc:'请输入品种编号',type:'input'},
+                {label:'标的名称',field:'security_name',prop:'security_name',desc:'请输入品种名称',type:'input'},
+                {label:'品种大类',field:'security_name',prop:'security_class',desc:'请选择品种大类',type:'select',dic:[
+                    { label:'现金',value:'现金'},
+                    { label:'基金',value:'基金'},
+                    { label:'理财',value:'理财'}
+
+                ] },
                 {label:'委托价格',field:'proxy_price',desc:'请输入委托价格',type:'input',show:'number'},
                 {label:'成交价格',field:'real_price',desc:'请输入成交价格',type:'input',show:'number'},
                 {label:'止损价格',field:'sl_price',desc:'请输入止损价格',type:'input',show:'number'},
@@ -159,26 +171,28 @@ export default class AutoTable extends Vue{
    async getList(){
   
     const res = await  this.bll.getHomeList(this.params)
-     res.data.data =  res.data.data.map(item=>{
+    let list  =  res.data.data.map(item=>{
         return {
           ...item,
           cate:item.cate.img_path ? {img_path:item.cate.img_path.split(','),thumb_path:item.cate.thumb_path.split(',')} : {img_path:[],thumb_path:[]}
         }
      })
-    let arr:any=[] 
-    this.options.columns.forEach(item=>{
-       if(item.show==='number'){
-         arr.push(item.field)
-       }
-    })
-    res.data.data.forEach(item=>{
-       arr.forEach(mini=>{
-         item[mini] = parseInt(item[mini]*100+'')/100
-       })
-    })
+    // let arr:any=[] 
+    // this.options.columns.forEach(item=>{
+    //    if(item.show==='number'){
+    //      arr.push(item.field)
+    //    }
+    // })
+    // res.data.data.forEach(item=>{
+    //    arr.forEach(mini=>{
+    //      item[mini] = parseInt(item[mini]*100+'')/100
+    //    })
+    // })
       //  let temp = _.cloneDeep(res.data.data)
+
+      list = list.filter(item=>item.status===0)
     
-      this.$set(this.data,'data',res.data.data)
+      this.$set(this.data,'data',list)
       this.$forceUpdate()
       // this.data = res.data 
       
@@ -215,10 +229,9 @@ export default class AutoTable extends Vue{
       
     }
 
-    // 修改界面
+    // 逻辑删除
     // handleUpdateClick(row){
     //   let temp = Object.assign({},row)
-    //   temp.title="修改数据" 
     //   this.val = temp 
     //   this.currentId = row.id
     //   this.cateId = row.cateId
@@ -298,6 +311,11 @@ export default class AutoTable extends Vue{
       this.val={}
       this.operStatus='add'
       this.imgArr=[]
+    }
+
+    handleDel(val){
+      val.status = 1 
+      this.handleSubmit2(val)
     }
 
      async handleSubmit2(val){
